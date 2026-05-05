@@ -3,7 +3,6 @@ import Image from "next/image";
 export default function Home() {
   return (
     <div className="relative flex min-h-full flex-1 flex-col items-center justify-center overflow-x-hidden px-4">
-      {/* Background gradients */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10"
@@ -15,42 +14,27 @@ export default function Home() {
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-px"
-        style={{
-          background:
-            "linear-gradient(to right, transparent, rgba(103,61,230,0.5), transparent)",
-        }}
+        style={{ background: "linear-gradient(to right, transparent, rgba(103,61,230,0.5), transparent)" }}
       />
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-px"
-        style={{
-          background:
-            "linear-gradient(to right, transparent, rgba(115,82,237,0.25), transparent)",
-        }}
+        style={{ background: "linear-gradient(to right, transparent, rgba(115,82,237,0.25), transparent)" }}
       />
 
       <main className="flex w-full max-w-2xl flex-col items-center gap-10 text-center">
         {/* Logo */}
         <div className="flex flex-col items-center gap-4">
           <div
-            className="flex h-20 w-20 items-center justify-center rounded-2xl shadow-2xl"
+            className="flex h-20 w-20 items-center justify-center rounded-2xl"
             style={{
               background: "linear-gradient(135deg, #7352ed 0%, #673de6 100%)",
               boxShadow: "0 0 40px rgba(103,61,230,0.4)",
             }}
           >
-            <Image
-              src="/logo.svg"
-              alt="Alixali logo"
-              width={48}
-              height={48}
-              priority
-            />
+            <Image src="/logo.svg" alt="Alixali logo" width={48} height={48} priority />
           </div>
-          <p
-            className="text-sm font-semibold tracking-[0.22em] uppercase"
-            style={{ color: "#a19bff" }}
-          >
+          <p className="text-sm font-semibold tracking-[0.22em] uppercase text-[#a19bff]">
             Ali Ali
           </p>
         </div>
@@ -61,16 +45,13 @@ export default function Home() {
             Something{" "}
             <span
               className="bg-clip-text text-transparent"
-              style={{
-                backgroundImage:
-                  "linear-gradient(90deg, #a19bff 0%, #673de6 100%)",
-              }}
+              style={{ backgroundImage: "linear-gradient(90deg, #a19bff 0%, #673de6 100%)" }}
             >
               beautiful
             </span>{" "}
             is coming.
           </h1>
-          <p className="text-pretty text-lg leading-relaxed" style={{ color: "#c0bec8" }}>
+          <p className="text-pretty text-lg leading-relaxed text-[#c0bec8]">
             A new portfolio is on its way — brand identities, campaigns, and
             thoughtful visual craft. Stay tuned.
           </p>
@@ -79,36 +60,15 @@ export default function Home() {
         {/* Divider */}
         <div
           className="h-px w-24"
-          style={{
-            background:
-              "linear-gradient(to right, transparent, rgba(161,155,255,0.6), transparent)",
-          }}
+          style={{ background: "linear-gradient(to right, transparent, rgba(161,155,255,0.6), transparent)" }}
         />
 
         {/* Contact */}
         <div className="flex flex-col items-center gap-3">
-          <p className="text-sm" style={{ color: "#c0bec8" }}>
-            Want to reach out in the meantime?
-          </p>
+          <p className="text-sm text-[#c0bec8]">Want to reach out in the meantime?</p>
           <a
             href="mailto:hello@alixali.com"
-            className="inline-flex items-center justify-center rounded-xl px-6 py-3 text-sm font-medium text-white transition-all"
-            style={{
-              border: "1px solid rgba(103,61,230,0.35)",
-              background: "rgba(103,61,230,0.12)",
-            }}
-            onMouseOver={(e) => {
-              (e.currentTarget as HTMLElement).style.background =
-                "rgba(103,61,230,0.25)";
-              (e.currentTarget as HTMLElement).style.borderColor =
-                "rgba(161,155,255,0.5)";
-            }}
-            onMouseOut={(e) => {
-              (e.currentTarget as HTMLElement).style.background =
-                "rgba(103,61,230,0.12)";
-              (e.currentTarget as HTMLElement).style.borderColor =
-                "rgba(103,61,230,0.35)";
-            }}
+            className="inline-flex items-center justify-center rounded-xl border border-[rgba(103,61,230,0.35)] bg-[rgba(103,61,230,0.12)] px-6 py-3 text-sm font-medium text-white transition-all hover:border-[rgba(161,155,255,0.5)] hover:bg-[rgba(103,61,230,0.25)]"
           >
             hello@alixali.com
           </a>
@@ -119,14 +79,7 @@ export default function Home() {
           href="https://www.linkedin.com/in/alixalicom"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 text-sm transition-all"
-          style={{ color: "#a19bff" }}
-          onMouseOver={(e) =>
-            ((e.currentTarget as HTMLElement).style.color = "#cbc8ff")
-          }
-          onMouseOut={(e) =>
-            ((e.currentTarget as HTMLElement).style.color = "#a19bff")
-          }
+          className="flex items-center gap-2 text-sm text-[#a19bff] transition-colors hover:text-[#cbc8ff]"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -142,7 +95,7 @@ export default function Home() {
         </a>
       </main>
 
-      <footer className="absolute bottom-6 text-xs" style={{ color: "rgba(192,190,200,0.4)" }}>
+      <footer className="absolute bottom-6 text-xs text-[rgba(192,190,200,0.4)]">
         © {new Date().getFullYear()} Ali Ali
       </footer>
     </div>
