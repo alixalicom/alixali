@@ -1,314 +1,333 @@
 import Image from "next/image";
+import WorkGallery from "./components/WorkGallery";
 
 const nav = [
   { href: "#about", label: "About" },
   { href: "#experience", label: "Experience" },
   { href: "#skills", label: "Skills" },
-  { href: "#gallery", label: "Gallery" },
+  { href: "#work", label: "Work" },
   { href: "#contact", label: "Contact" },
 ];
 
-const gallery = [
+const experience = [
   {
-    title: "Brand refresh — placeholder",
-    tag: "Identity",
-    image: "/file.svg",
+    role: "Graphic Designer",
+    org: "كهرماء — Qatar General Electricity & Water",
+    location: "Doha, Qatar · Full-time",
+    dates: "Aug 2025 — Present",
+    current: true,
+    bullets: [
+      "Creating visual content for one of Qatar's largest public utilities.",
+      "Designing for print, digital, and internal communications.",
+    ],
   },
   {
-    title: "Campaign visuals — placeholder",
-    tag: "Social",
-    image: "/window.svg",
+    role: "Graphic Designer",
+    org: "Abecods Digital Solutions",
+    location: "Doha, Qatar · Remote",
+    dates: "Dec 2024 — Nov 2025",
+    current: false,
+    bullets: [
+      "Produced visuals for print and digital: ads, social media, logos, and brand identities.",
+    ],
   },
   {
-    title: "Packaging concept — placeholder",
-    tag: "Print",
-    image: "/vercel.svg",
+    role: "Community Manager & Graphic Designer",
+    org: "Wqtah",
+    location: "Doha, Qatar · Hybrid",
+    dates: "Feb 2024 — Jan 2025",
+    current: false,
+    bullets: [
+      "Managed social media pages and created design assets in Arabic and English.",
+      "Developed HTML email templates and maintained website content.",
+    ],
   },
   {
-    title: "Editorial layout — placeholder",
-    tag: "Layout",
-    image: "/file.svg",
+    role: "Graphic Designer",
+    org: "Nour Publishing",
+    location: "UAE · Remote",
+    dates: "Oct 2019 — Apr 2022",
+    current: false,
+    bullets: [
+      "Produced book layouts using Adobe InDesign and social media design assets.",
+    ],
   },
   {
-    title: "Event graphics — placeholder",
-    tag: "Campaign",
-    image: "/window.svg",
+    role: "Chief Designer",
+    org: "Amart for Advanced Projects CO.LTD",
+    location: "Khartoum, Sudan · On-site",
+    dates: "Mar 2021 — Nov 2021",
+    current: false,
+    bullets: [
+      "Led visual design for a group of prominent Sudanese companies including Al Baraka Bank Sudan and Al Jazira Bank.",
+    ],
   },
   {
-    title: "UI art direction — placeholder",
-    image: "/vercel.svg",
-    tag: "Digital",
+    role: "Freelance Graphic Designer",
+    org: "Independent",
+    location: "Remote",
+    dates: "2017 — Present",
+    current: false,
+    bullets: [
+      "Assisted 30+ startups and brands in establishing their visual presence.",
+      "Delivered brand identities, publications, UI design, and social media kits.",
+    ],
   },
-] as const;
+];
+
+const designSkills = [
+  "Brand Identity",
+  "Logo Design",
+  "Social Media Design",
+  "Publication Design",
+  "Print & Printables",
+  "UI Art Direction",
+  "Visual Systems",
+  "Campaign Design",
+];
+
+const tools = [
+  { name: "Photoshop", level: 95 },
+  { name: "Illustrator", level: 92 },
+  { name: "InDesign", level: 88 },
+  { name: "Figma", level: 80 },
+  { name: "XD", level: 78 },
+  { name: "After Effects", level: 55 },
+  { name: "Premiere Pro", level: 50 },
+];
+
 
 export default function Home() {
   return (
     <div className="relative flex min-h-full flex-1 flex-col overflow-x-hidden">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(59,130,246,0.35),transparent),radial-gradient(ellipse_60%_40%_at_100%_0%,rgba(37,99,235,0.2),transparent),radial-gradient(ellipse_50%_35%_at_0%_20%,rgba(14,165,233,0.15),transparent)]"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-px bg-gradient-to-r from-transparent via-sky-500/40 to-transparent"
-      />
 
-      <header className="sticky top-0 z-20 border-b border-white/5 bg-slate-950/70 backdrop-blur-md">
-        <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-4 sm:px-6">
-          <a
-            href="#top"
-            className="group flex items-center gap-2 text-sm font-semibold tracking-tight text-slate-100"
-          >
-            <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-sky-500 to-blue-600 text-xs font-bold text-white shadow-lg shadow-sky-500/25">
-              YN
-            </span>
-            <span className="group-hover:text-sky-200 transition-colors">
-              Your Name
+      {/* Ambient */}
+      <div aria-hidden className="pointer-events-none fixed inset-0 -z-10"
+        style={{ background: "radial-gradient(ellipse 70% 50% at 15% -5%, rgba(103,61,230,0.2) 0%, transparent 60%), radial-gradient(ellipse 50% 40% at 90% 15%, rgba(115,82,237,0.12) 0%, transparent 55%)" }} />
+
+      {/* ── HEADER ── */}
+      <header className="sticky top-0 z-20 border-b border-white/5 backdrop-blur-md"
+        style={{ background: "rgba(18,9,42,0.8)" }}>
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-4 sm:px-8">
+          <a href="#" className="flex items-center gap-2.5">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl"
+              style={{ background: "#12092a", boxShadow: "0 0 0 1px rgba(103,61,230,0.4)" }}>
+              <Image src="/logo.svg" alt="Alixali" width={22} height={22} priority />
+            </div>
+            <span className="text-sm font-semibold tracking-wide text-white">
+              Ali <span style={{ color: "#a19bff" }}>Ali</span>
             </span>
           </a>
-          <nav className="hidden items-center gap-1 text-sm text-slate-300 md:flex">
+
+          <nav className="hidden items-center gap-0.5 text-sm md:flex" style={{ color: "#c0bec8" }}>
             {nav.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className="rounded-lg px-3 py-2 transition-colors hover:bg-white/5 hover:text-sky-200"
-              >
+              <a key={item.href} href={item.href}
+                className="rounded-lg px-3 py-2 transition-colors hover:text-white">
                 {item.label}
               </a>
             ))}
           </nav>
-          <div className="flex items-center gap-2">
-            <a
-              href="#contact"
-              className="hidden rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-slate-100 transition-colors hover:border-sky-500/40 hover:bg-sky-500/10 hover:text-sky-100 sm:inline-flex"
-            >
-              Let&apos;s talk
-            </a>
-            <a
-              href="mailto:hello@example.com?subject=CV%20request&body=Hi%20%E2%80%94%20I%E2%80%99d%20love%20to%20receive%20your%20CV."
-              className="inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-sky-500 to-blue-600 px-4 py-2 text-sm font-medium text-white shadow-lg shadow-sky-500/20 transition hover:brightness-110"
-            >
-              Request CV
-            </a>
-          </div>
+
+          <a href="mailto:hello@alixali.com"
+            className="rounded-xl px-4 py-2 text-sm font-medium text-white transition-all hover:brightness-110"
+            style={{ background: "linear-gradient(135deg, #7352ed, #673de6)" }}>
+            Let&apos;s Talk
+          </a>
         </div>
       </header>
 
-      <main id="top" className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-20 px-4 pb-24 pt-10 sm:px-6 sm:pt-14">
-        <section className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
-          <div className="flex flex-col gap-6">
-            <p className="inline-flex w-fit items-center gap-2 rounded-full border border-sky-500/25 bg-sky-500/10 px-3 py-1 text-xs font-medium text-sky-200">
-              <span className="h-1.5 w-1.5 rounded-full bg-sky-400 shadow-[0_0_12px_rgba(56,189,248,0.9)]" />
-              Graphic designer · Portfolio + CV
-            </p>
-            <h1 className="text-balance text-4xl font-semibold tracking-tight text-white sm:text-5xl">
-              Bold visuals, clear stories, and{" "}
-              <span className="bg-gradient-to-r from-sky-300 to-blue-400 bg-clip-text text-transparent">
-                thoughtful craft
-              </span>
-              .
-            </h1>
-            <p className="max-w-xl text-pretty text-lg leading-relaxed text-slate-400">
-              Placeholder intro: I help teams shape memorable brands through
-              identity systems, campaign art direction, and polished digital
-              graphics — from first sketches to final production files.
-            </p>
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-              <a
-                href="#gallery"
-                className="inline-flex items-center justify-center rounded-xl bg-white px-5 py-3 text-sm font-semibold text-slate-950 shadow-sm transition hover:bg-slate-100"
-              >
-                See selected work
-              </a>
-              <a
-                href="mailto:hello@example.com"
-                className="inline-flex items-center justify-center rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-medium text-slate-100 transition hover:border-sky-500/40 hover:bg-sky-500/10"
-              >
-                hello@example.com
-              </a>
-            </div>
-            <dl className="grid max-w-lg grid-cols-3 gap-4 pt-2 text-sm">
-              <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-                <dt className="text-slate-500">Years</dt>
-                <dd className="mt-1 text-lg font-semibold text-white">8+</dd>
-              </div>
-              <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-                <dt className="text-slate-500">Clients</dt>
-                <dd className="mt-1 text-lg font-semibold text-white">40+</dd>
-              </div>
-              <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-                <dt className="text-slate-500">Focus</dt>
-                <dd className="mt-1 text-lg font-semibold text-white">
-                  Brand
-                </dd>
-              </div>
-            </dl>
-          </div>
+      <main className="flex flex-1 flex-col">
 
-          <div className="relative">
-            <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-sky-500/20 via-blue-600/10 to-transparent blur-2xl" />
-            <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-slate-900/80 to-slate-950/90 p-6 shadow-2xl shadow-sky-900/20">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <p className="text-xs font-medium uppercase tracking-wider text-sky-300/90">
-                    Snapshot
-                  </p>
-                  <p className="mt-2 text-xl font-semibold text-white">
-                    Your Name
-                  </p>
-                  <p className="mt-1 text-sm text-slate-400">
-                    Senior Graphic Designer · City, Country
-                  </p>
-                </div>
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-2">
-                  <div className="relative h-20 w-20 overflow-hidden rounded-xl bg-gradient-to-br from-slate-800 to-slate-900">
-                    <Image
-                      src="/window.svg"
-                      alt="Placeholder portrait graphic"
-                      fill
-                      className="object-cover p-3 opacity-90"
-                      sizes="80px"
-                      priority
-                    />
-                  </div>
-                </div>
-              </div>
-              <ul className="mt-6 space-y-3 text-sm text-slate-300">
-                <li className="flex gap-3">
-                  <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-sky-400" />
-                  <span>
-                    Placeholder: led visual direction for a multi-channel
-                    launch — social, web, and print.
-                  </span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-blue-400" />
-                  <span>
-                    Placeholder: built scalable brand kits, templates, and
-                    guidelines for fast-moving teams.
-                  </span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-cyan-400" />
-                  <span>
-                    Placeholder: collaborative partner with marketing and
-                    product — clear files, realistic timelines.
-                  </span>
-                </li>
-              </ul>
-              <div className="mt-6 flex flex-wrap gap-2">
-                {["Photoshop", "Illustrator", "InDesign", "Figma"].map(
-                  (tool) => (
-                    <span
-                      key={tool}
-                      className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-200"
-                    >
-                      {tool}
-                    </span>
-                  ),
-                )}
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* ── HERO ── */}
+        <section className="mx-auto flex w-full max-w-6xl flex-col gap-16 px-5 pb-24 pt-20 sm:px-8 lg:flex-row lg:items-center lg:pt-28">
+          <div className="flex flex-1 flex-col gap-7">
 
-        <section
-          id="about"
-          className="grid gap-10 border-t border-white/5 pt-16 lg:grid-cols-2"
-        >
-          <div>
-            <h2 className="text-2xl font-semibold tracking-tight text-white">
-              About
-            </h2>
-            <p className="mt-4 text-slate-400 leading-relaxed">
-              Placeholder bio: I&apos;m a graphic designer who loves typography,
-              composition, and color systems. I enjoy turning messy ideas into
-              cohesive visuals that feel confident on screen and in print.
-            </p>
-            <p className="mt-4 text-slate-400 leading-relaxed">
-              This site doubles as my CV and a small gallery — enough to show
-              taste and range without a heavy case-study buildout.
-            </p>
-          </div>
-          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-sky-300/90">
-              Working style
-            </h3>
-            <ul className="mt-4 space-y-3 text-slate-300">
-              <li className="flex gap-3">
-                <span className="font-mono text-xs text-slate-500">01</span>
-                Discovery, references, and a tight creative direction.
-              </li>
-              <li className="flex gap-3">
-                <span className="font-mono text-xs text-slate-500">02</span>
-                Iterations with clear rationale — not endless options.
-              </li>
-              <li className="flex gap-3">
-                <span className="font-mono text-xs text-slate-500">03</span>
-                Delivery-ready exports, naming, and organized handoff.
-              </li>
-            </ul>
-          </div>
-        </section>
+            <span className="inline-flex w-fit items-center gap-2 rounded-full border px-3.5 py-1.5 text-xs font-medium"
+              style={{ borderColor: "rgba(103,61,230,0.35)", background: "rgba(103,61,230,0.1)", color: "#a19bff" }}>
+              <span className="h-1.5 w-1.5 rounded-full"
+                style={{ background: "#673de6", boxShadow: "0 0 8px #673de6" }} />
+              Pixels Engineer · Graphic Designer
+            </span>
 
-        <section id="experience" className="border-t border-white/5 pt-16">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <h2 className="text-2xl font-semibold tracking-tight text-white">
-                Experience
-              </h2>
-              <p className="mt-2 max-w-xl text-slate-400">
-                Placeholder roles — swap titles, dates, and bullets with your
-                real history.
+            <div className="flex flex-col gap-3">
+              <h1 className="text-balance text-4xl font-semibold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
+                Engineering pixels
+                <br />into brands{" "}
+                <span className="bg-clip-text text-transparent"
+                  style={{ backgroundImage: "linear-gradient(90deg, #a19bff 0%, #673de6 100%)" }}>
+                  that endure.
+                </span>
+              </h1>
+              <p className="max-w-lg text-pretty text-lg leading-relaxed" style={{ color: "#c0bec8" }}>
+                I&apos;m Ali Ali — a graphic designer with 7+ years of crafting visual identities,
+                campaigns, and design systems for brands and startups across the Middle East.
               </p>
             </div>
-            <a
-              href="https://www.linkedin.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-sky-300 hover:text-sky-200"
-            >
+
+            <div className="flex flex-wrap gap-3">
+              <a href="#work"
+                className="inline-flex items-center justify-center rounded-xl px-6 py-3 text-sm font-semibold text-white transition-all hover:brightness-110"
+                style={{ background: "linear-gradient(135deg, #7352ed, #673de6)", boxShadow: "0 4px 24px rgba(103,61,230,0.35)" }}>
+                View my work
+              </a>
+              <a href="mailto:hello@alixali.com"
+                className="inline-flex items-center justify-center rounded-xl border px-6 py-3 text-sm font-medium text-white transition-all hover:border-[rgba(161,155,255,0.4)] hover:bg-[rgba(103,61,230,0.1)]"
+                style={{ borderColor: "rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.04)" }}>
+                hello@alixali.com
+              </a>
+            </div>
+
+            <div className="flex flex-wrap gap-8 pt-1">
+              {[
+                { value: "7+", label: "Years experience" },
+                { value: "30+", label: "Brands & startups" },
+                { value: "Qatar", label: "Based in" },
+              ].map((s) => (
+                <div key={s.label}>
+                  <p className="text-2xl font-semibold text-white">{s.value}</p>
+                  <p className="mt-0.5 text-xs" style={{ color: "#c0bec8" }}>{s.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Hero card */}
+          <div className="relative w-full lg:w-[360px] lg:shrink-0">
+            <div aria-hidden className="pointer-events-none absolute -inset-8 -z-10 rounded-3xl blur-3xl"
+              style={{ background: "radial-gradient(ellipse at center, rgba(103,61,230,0.18), transparent 70%)" }} />
+
+            <div className="flex flex-col gap-3">
+              <div className="rounded-2xl border p-6"
+                style={{ borderColor: "rgba(103,61,230,0.2)", background: "rgba(103,61,230,0.06)", backdropFilter: "blur(12px)" }}>
+                <p className="text-xs font-medium uppercase tracking-widest" style={{ color: "#a19bff" }}>Current role</p>
+                <p className="mt-3 text-base font-semibold text-white">Graphic Designer</p>
+                <p className="mt-0.5 text-sm" style={{ color: "#c0bec8" }}>كهرماء — Qatar General Electricity & Water</p>
+                <p className="mt-1 text-xs" style={{ color: "#7352ed" }}>Full-time · Aug 2025 – Present</p>
+
+                <div className="my-4 h-px" style={{ background: "rgba(103,61,230,0.2)" }} />
+
+                <p className="text-xs font-medium uppercase tracking-widest" style={{ color: "#a19bff" }}>Core tools</p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {["Photoshop", "Illustrator", "InDesign", "Figma", "XD"].map((t) => (
+                    <span key={t} className="rounded-lg border px-2.5 py-1 text-xs text-white"
+                      style={{ borderColor: "rgba(161,155,255,0.15)", background: "rgba(161,155,255,0.05)" }}>
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="rounded-xl border px-4 py-3"
+                style={{ borderColor: "rgba(103,61,230,0.2)", background: "rgba(103,61,230,0.06)" }}>
+                <p className="text-sm" style={{ color: "#c0bec8" }}>
+                  <span style={{ color: "#a19bff" }}>🏆 </span>
+                  Logo competition winner — Ministry of Telecom, Sudan
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
+          <div className="h-px" style={{ background: "linear-gradient(to right, transparent, rgba(103,61,230,0.3), transparent)" }} />
+        </div>
+
+        {/* ── ABOUT ── */}
+        <section id="about" className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8">
+          <div className="grid gap-12 lg:grid-cols-2 lg:items-start">
+            <div className="flex flex-col gap-5">
+              <div>
+                <p className="text-xs font-medium uppercase tracking-widest" style={{ color: "#a19bff" }}>About</p>
+                <h2 className="mt-2 text-3xl font-semibold tracking-tight text-white">The designer behind the pixels</h2>
+              </div>
+              <p className="text-pretty leading-relaxed" style={{ color: "#c0bec8" }}>
+                I&apos;m a Sudanese graphic designer based in Doha, Qatar, with a Bachelor&apos;s degree in
+                Computer Engineering and over 7 years of hands-on experience in visual design. That
+                technical foundation shapes how I approach design — systematically, efficiently, and
+                with an eye for what works beyond aesthetics.
+              </p>
+              <p className="text-pretty leading-relaxed" style={{ color: "#c0bec8" }}>
+                I&apos;ve worked across startups, publishers, and large public institutions — always
+                bringing the same commitment: clear creative direction, realistic timelines, and
+                production-ready deliverables.
+              </p>
+              <div className="flex gap-4 pt-2">
+                <a href="mailto:hello@alixali.com"
+                  className="inline-flex items-center justify-center rounded-xl px-5 py-2.5 text-sm font-medium text-white transition-all hover:brightness-110"
+                  style={{ background: "linear-gradient(135deg, #7352ed, #673de6)" }}>
+                  Get in touch
+                </a>
+                <a href="https://www.linkedin.com/in/alixalicom" target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center rounded-xl border px-5 py-2.5 text-sm font-medium transition-all hover:border-[rgba(161,155,255,0.4)] hover:text-white"
+                  style={{ borderColor: "rgba(255,255,255,0.1)", color: "#c0bec8", background: "rgba(255,255,255,0.03)" }}>
+                  LinkedIn
+                </a>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              {[
+                { label: "Approach", value: "Discovery first, then clear creative direction — not endless options." },
+                { label: "Delivery", value: "Production-ready exports with organized naming and structured handoff." },
+                { label: "Languages", value: "Arabic (native) · English (intermediate)" },
+                { label: "Education", value: "B.Sc. Computer Engineering — Alzaeem Alazhary University, Sudan" },
+              ].map((item) => (
+                <div key={item.label} className="rounded-2xl border p-5"
+                  style={{ borderColor: "rgba(103,61,230,0.15)", background: "rgba(103,61,230,0.04)" }}>
+                  <p className="text-xs font-medium uppercase tracking-wider" style={{ color: "#a19bff" }}>{item.label}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-white">{item.value}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
+          <div className="h-px" style={{ background: "linear-gradient(to right, transparent, rgba(103,61,230,0.3), transparent)" }} />
+        </div>
+
+        {/* ── EXPERIENCE ── */}
+        <section id="experience" className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8">
+          <div className="mb-10 flex items-end justify-between">
+            <div>
+              <p className="text-xs font-medium uppercase tracking-widest" style={{ color: "#a19bff" }}>Experience</p>
+              <h2 className="mt-2 text-3xl font-semibold tracking-tight text-white">Work history</h2>
+            </div>
+            <a href="https://www.linkedin.com/in/alixalicom" target="_blank" rel="noopener noreferrer"
+              className="text-sm transition-colors hover:text-white" style={{ color: "#a19bff" }}>
               LinkedIn →
             </a>
           </div>
 
-          <div className="mt-8 space-y-4">
-            {[
-              {
-                role: "Senior Graphic Designer",
-                org: "Studio North — placeholder",
-                dates: "2022 — Present",
-                bullets: [
-                  "Art direction for campaigns across social, web, and events.",
-                  "Mentored designers and standardized templates for speed.",
-                ],
-              },
-              {
-                role: "Graphic Designer",
-                org: "Freelance — placeholder",
-                dates: "2018 — 2022",
-                bullets: [
-                  "Brand identities, pitch decks, and packaging explorations.",
-                  "Client workshops, moodboards, and production-ready files.",
-                ],
-              },
-            ].map((job) => (
-              <article
-                key={job.role + job.org}
-                className="rounded-2xl border border-white/10 bg-gradient-to-br from-slate-900/50 to-slate-950/50 p-6"
-              >
-                <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
-                  <div>
-                    <h3 className="text-lg font-semibold text-white">
-                      {job.role}
-                    </h3>
-                    <p className="text-sm text-slate-400">{job.org}</p>
+          <div className="flex flex-col gap-4">
+            {experience.map((job) => (
+              <article key={job.role + job.org} className="rounded-2xl border p-6 transition-colors"
+                style={{
+                  borderColor: job.current ? "rgba(103,61,230,0.35)" : "rgba(103,61,230,0.12)",
+                  background: job.current ? "rgba(103,61,230,0.08)" : "rgba(103,61,230,0.03)",
+                }}>
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                  <div className="flex flex-col gap-1">
+                    <div className="flex items-center gap-2">
+                      <h3 className="text-base font-semibold text-white">{job.role}</h3>
+                      {job.current && (
+                        <span className="rounded-full px-2 py-0.5 text-[10px] font-medium"
+                          style={{ background: "rgba(103,61,230,0.25)", color: "#a19bff" }}>
+                          Current
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-sm font-medium" style={{ color: job.current ? "#a19bff" : "#c0bec8" }}>{job.org}</p>
+                    <p className="text-xs" style={{ color: "rgba(192,190,200,0.6)" }}>{job.location}</p>
                   </div>
-                  <p className="text-sm text-sky-200/90">{job.dates}</p>
+                  <p className="shrink-0 text-sm" style={{ color: "#7352ed" }}>{job.dates}</p>
                 </div>
-                <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-slate-300 marker:text-sky-400">
+                <ul className="mt-4 flex flex-col gap-2">
                   {job.bullets.map((b) => (
-                    <li key={b}>{b}</li>
+                    <li key={b} className="flex gap-3 text-sm leading-relaxed" style={{ color: "#c0bec8" }}>
+                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "#673de6" }} />
+                      {b}
+                    </li>
                   ))}
                 </ul>
               </article>
@@ -316,150 +335,118 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="skills" className="border-t border-white/5 pt-16">
-          <h2 className="text-2xl font-semibold tracking-tight text-white">
-            Skills
-          </h2>
-          <p className="mt-2 max-w-xl text-slate-400">
-            Placeholder skill clusters — adjust to match your real stack.
-          </p>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              {
-                title: "Brand & identity",
-                items: ["Logo systems", "Color + type", "Brand guidelines"],
-              },
-              {
-                title: "Campaign design",
-                items: ["Social kits", "Ads", "Landing visuals"],
-              },
-              {
-                title: "Print & packaging",
-                items: ["Layouts", "Dielines", "Prepress checks"],
-              },
-            ].map((group) => (
-              <div
-                key={group.title}
-                className="rounded-2xl border border-white/10 bg-white/[0.03] p-5"
-              >
-                <h3 className="text-sm font-semibold text-white">
-                  {group.title}
-                </h3>
-                <ul className="mt-3 space-y-2 text-sm text-slate-300">
-                  {group.items.map((item) => (
-                    <li key={item} className="flex gap-2">
-                      <span className="text-sky-400">/</span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </section>
+        <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
+          <div className="h-px" style={{ background: "linear-gradient(to right, transparent, rgba(103,61,230,0.3), transparent)" }} />
+        </div>
 
-        <section id="gallery" className="border-t border-white/5 pt-16">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <h2 className="text-2xl font-semibold tracking-tight text-white">
-                Selected work
-              </h2>
-              <p className="mt-2 max-w-xl text-slate-400">
-                A compact gallery — swap these placeholders with your real JPG /
-                PNG exports in <span className="text-slate-200">/public</span>.
-              </p>
-            </div>
-            <p className="text-sm text-slate-500">6 pieces · grid layout</p>
+        {/* ── SKILLS ── */}
+        <section id="skills" className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8">
+          <div className="mb-10">
+            <p className="text-xs font-medium uppercase tracking-widest" style={{ color: "#a19bff" }}>Skills</p>
+            <h2 className="mt-2 text-3xl font-semibold tracking-tight text-white">What I bring to the table</h2>
           </div>
 
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {gallery.map((item) => (
-              <figure
-                key={item.title}
-                className="group overflow-hidden rounded-2xl border border-white/10 bg-slate-900/40"
-              >
-                <div className="relative aspect-[4/3] bg-gradient-to-br from-slate-800/80 to-slate-950/80">
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    className="object-contain p-10 opacity-80 transition duration-300 group-hover:scale-[1.03] group-hover:opacity-100"
-                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                  />
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-0 transition group-hover:opacity-100" />
-                </div>
-                <figcaption className="flex items-start justify-between gap-3 p-4">
-                  <div>
-                    <p className="text-sm font-medium text-white">
-                      {item.title}
-                    </p>
-                    <p className="mt-1 text-xs text-slate-400">
-                      Placeholder caption — add client or year later.
-                    </p>
-                  </div>
-                  <span className="shrink-0 rounded-full border border-sky-500/25 bg-sky-500/10 px-2.5 py-1 text-[11px] font-medium text-sky-200">
-                    {item.tag}
+          <div className="grid gap-8 lg:grid-cols-2">
+            {/* Disciplines */}
+            <div className="rounded-2xl border p-6"
+              style={{ borderColor: "rgba(103,61,230,0.15)", background: "rgba(103,61,230,0.04)" }}>
+              <p className="text-xs font-medium uppercase tracking-widest" style={{ color: "#a19bff" }}>Design disciplines</p>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {designSkills.map((s) => (
+                  <span key={s} className="rounded-xl border px-3 py-1.5 text-sm text-white"
+                    style={{ borderColor: "rgba(161,155,255,0.15)", background: "rgba(161,155,255,0.05)" }}>
+                    {s}
                   </span>
-                </figcaption>
-              </figure>
-            ))}
+                ))}
+              </div>
+            </div>
+
+            {/* Tools */}
+            <div className="rounded-2xl border p-6"
+              style={{ borderColor: "rgba(103,61,230,0.15)", background: "rgba(103,61,230,0.04)" }}>
+              <p className="text-xs font-medium uppercase tracking-widest" style={{ color: "#a19bff" }}>Tools & software</p>
+              <div className="mt-5 flex flex-col gap-4">
+                {tools.map((t) => (
+                  <div key={t.name}>
+                    <div className="mb-1.5 flex items-center justify-between text-sm">
+                      <span className="text-white">{t.name}</span>
+                      <span style={{ color: "#a19bff" }}>{t.level}%</span>
+                    </div>
+                    <div className="h-1.5 w-full overflow-hidden rounded-full" style={{ background: "rgba(103,61,230,0.15)" }}>
+                      <div className="h-full rounded-full"
+                        style={{ width: `${t.level}%`, background: "linear-gradient(90deg, #7352ed, #673de6)" }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
 
-        <section
-          id="contact"
-          className="border-t border-white/5 pt-16 pb-4"
-        >
-          <div className="rounded-3xl border border-sky-500/20 bg-gradient-to-br from-sky-500/15 via-blue-600/10 to-slate-950/40 p-8 sm:p-10">
-            <h2 className="text-2xl font-semibold tracking-tight text-white">
-              Contact
-            </h2>
-            <p className="mt-3 max-w-xl text-slate-200/90">
-              Placeholder CTA: tell me what you&apos;re building — a rebrand, a
-              launch, or a set of templates — and I&apos;ll reply with next
-              steps.
-            </p>
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <a
-                href="mailto:hello@example.com"
-                className="inline-flex items-center justify-center rounded-xl bg-white px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-slate-100"
-              >
-                Email me
-              </a>
-              <a
-                href="https://www.behance.net/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-medium text-white transition hover:border-sky-400/40 hover:bg-sky-500/10"
-              >
-                Behance
-              </a>
-              <a
-                href="https://www.instagram.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-medium text-white transition hover:border-sky-400/40 hover:bg-sky-500/10"
-              >
-                Instagram
-              </a>
+        <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
+          <div className="h-px" style={{ background: "linear-gradient(to right, transparent, rgba(103,61,230,0.3), transparent)" }} />
+        </div>
+
+        {/* ── WORK ── */}
+        <section id="work" className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8">
+          <div className="mb-10 flex items-end justify-between">
+            <div>
+              <p className="text-xs font-medium uppercase tracking-widest" style={{ color: "#a19bff" }}>Work</p>
+              <h2 className="mt-2 text-3xl font-semibold tracking-tight text-white">Selected projects</h2>
             </div>
-            <p className="mt-6 text-xs text-slate-400">
-              Tip: swap the mailto address everywhere when you&apos;re ready, or
-              add a real PDF in <span className="text-slate-200">/public</span>{" "}
-              and link it from the header.
-            </p>
+            <p className="text-sm" style={{ color: "rgba(192,190,200,0.5)" }}>Coming soon</p>
+          </div>
+
+          <WorkGallery />
+        </section>
+
+        <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
+          <div className="h-px" style={{ background: "linear-gradient(to right, transparent, rgba(103,61,230,0.3), transparent)" }} />
+        </div>
+
+        {/* ── CONTACT ── */}
+        <section id="contact" className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8">
+          <div className="overflow-hidden rounded-3xl border p-10 sm:p-14"
+            style={{ borderColor: "rgba(103,61,230,0.25)", background: "linear-gradient(135deg, rgba(103,61,230,0.12) 0%, rgba(18,9,42,0.6) 100%)" }}>
+            <div className="mx-auto max-w-xl text-center">
+              <p className="text-xs font-medium uppercase tracking-widest" style={{ color: "#a19bff" }}>Contact</p>
+              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+                Let&apos;s build something together
+              </h2>
+              <p className="mt-4 leading-relaxed" style={{ color: "#c0bec8" }}>
+                Have a project in mind? Whether it&apos;s a brand identity, a campaign, or a visual
+                system — I&apos;d love to hear about it.
+              </p>
+              <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+                <a href="mailto:hello@alixali.com"
+                  className="inline-flex items-center justify-center rounded-xl px-7 py-3 text-sm font-semibold text-white transition-all hover:brightness-110"
+                  style={{ background: "linear-gradient(135deg, #7352ed, #673de6)", boxShadow: "0 4px 24px rgba(103,61,230,0.4)" }}>
+                  hello@alixali.com
+                </a>
+                <a href="https://www.linkedin.com/in/alixalicom" target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 justify-center rounded-xl border px-7 py-3 text-sm font-medium text-white transition-all hover:border-[rgba(161,155,255,0.4)] hover:bg-[rgba(103,61,230,0.1)]"
+                  style={{ borderColor: "rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.04)" }}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                  </svg>
+                  LinkedIn
+                </a>
+              </div>
+            </div>
           </div>
         </section>
+
       </main>
 
-      <footer className="border-t border-white/5 py-10">
-        <div className="mx-auto flex max-w-5xl flex-col gap-3 px-4 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-          <p>© {new Date().getFullYear()} Your Name. All rights reserved.</p>
-          <p className="text-slate-600">
-            Built with Next.js · placeholder content
-          </p>
+      {/* ── FOOTER ── */}
+      <footer className="border-t py-8" style={{ borderColor: "rgba(103,61,230,0.12)" }}>
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-5 text-xs sm:flex-row sm:px-8"
+          style={{ color: "rgba(192,190,200,0.35)" }}>
+          <p>© {new Date().getFullYear()} Ali Ali — Pixels Engineer</p>
+          <p>Graphic Designer · Doha, Qatar</p>
         </div>
       </footer>
+
     </div>
   );
 }

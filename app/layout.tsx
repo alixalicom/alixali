@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Your Name — Graphic Designer",
+  title: "Ali Ali — Pixels Engineer",
   description:
-    "Portfolio and CV — brand identity, digital graphics, and visual systems.",
+    "Graphic designer with 7+ years of experience. Specializing in brand identity, social media design, and visual systems.",
 };
 
 export default function RootLayout({
@@ -28,7 +28,7 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-slate-950 text-slate-100 font-sans">
+      <body className="min-h-full flex flex-col bg-[#12092a] text-white font-sans">
         {children}
       </body>
     </html>
