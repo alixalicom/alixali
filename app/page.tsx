@@ -28,7 +28,7 @@ export default function Home() {
           <div
             className="flex h-20 w-20 items-center justify-center rounded-2xl"
             style={{
-              background: "linear-gradient(135deg, #7352ed 0%, #673de6 100%)",
+              background: "#12092a",
               boxShadow: "0 0 40px rgba(103,61,230,0.4)",
             }}
           >
