@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Your Name — Graphic Designer",
+  title: "Your Name — Coming Soon",
   description:
-    "Portfolio and CV — brand identity, digital graphics, and visual systems.",
+    "A new portfolio is on its way — brand identities, campaigns, and thoughtful visual craft.",
 };
 
 export default function RootLayout({
