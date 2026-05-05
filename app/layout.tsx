@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Ali Ali — Coming Soon",
+  title: "Ali Ali — Pixels Engineer",
   description:
-    "A new portfolio is on its way — brand identities, campaigns, and thoughtful visual craft.",
+    "Graphic designer with 7+ years of experience. Specializing in brand identity, social media design, and visual systems.",
 };
 
 export default function RootLayout({
