@@ -1,0 +1,113 @@
+"use client";
+
+import { useState } from "react";
+
+type Status = "idle" | "sending" | "sent" | "error";
+
+export default function ContactForm() {
+  const [status, setStatus] = useState<Status>("idle");
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setStatus("sending");
+    // Simulate a short delay — replace with a real API call when ready
+    await new Promise((r) => setTimeout(r, 900));
+    setStatus("sent");
+  }
+
+  if (status === "sent") {
+    return (
+      <div className="flex h-full min-h-[220px] flex-col items-center justify-center gap-3 rounded-2xl border p-8 text-center"
+        style={{ borderColor: "var(--border-subtle)", background: "var(--bg-card)" }}>
+        <div className="flex h-12 w-12 items-center justify-center rounded-full"
+          style={{ background: "var(--badge-bg)" }}>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+            style={{ color: "var(--text-accent)" }}>
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+        </div>
+        <p className="text-base font-semibold" style={{ color: "var(--text-primary)" }}>Message received!</p>
+        <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
+          Thanks for reaching out. I'll get back to you soon.
+        </p>
+        <button
+          onClick={() => { setStatus("idle"); setForm({ name: "", email: "", message: "" }); }}
+          className="mt-2 text-xs underline underline-offset-4 transition-opacity hover:opacity-70"
+          style={{ color: "var(--text-muted)" }}>
+          Send another message
+        </button>
+      </div>
+    );
+  }
+
+  const inputStyle: React.CSSProperties = {
+    background: "var(--btn-ghost-bg)",
+    borderColor: "var(--border)",
+    color: "var(--text-primary)",
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div className="flex flex-col gap-1.5">
+          <label className="text-xs font-medium" style={{ color: "var(--text-secondary)" }}>Name</label>
+          <input
+            type="text"
+            name="name"
+            required
+            value={form.name}
+            onChange={handleChange}
+            placeholder="Your name"
+            className="rounded-xl border px-4 py-2.5 text-sm outline-none transition-colors focus:ring-2 focus:ring-[#673de6]/40"
+            style={inputStyle}
+          />
+        </div>
+        <div className="flex flex-col gap-1.5">
+          <label className="text-xs font-medium" style={{ color: "var(--text-secondary)" }}>Email</label>
+          <input
+            type="email"
+            name="email"
+            required
+            value={form.email}
+            onChange={handleChange}
+            placeholder="your@email.com"
+            className="rounded-xl border px-4 py-2.5 text-sm outline-none transition-colors focus:ring-2 focus:ring-[#673de6]/40"
+            style={inputStyle}
+          />
+        </div>
+      </div>
+      <div className="flex flex-col gap-1.5">
+        <label className="text-xs font-medium" style={{ color: "var(--text-secondary)" }}>Message</label>
+        <textarea
+          name="message"
+          required
+          rows={5}
+          value={form.message}
+          onChange={handleChange}
+          placeholder="What's on your mind?"
+          className="resize-none rounded-xl border px-4 py-2.5 text-sm outline-none transition-colors focus:ring-2 focus:ring-[#673de6]/40"
+          style={inputStyle}
+        />
+      </div>
+      <button
+        type="submit"
+        disabled={status === "sending"}
+        className="inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-white transition-all hover:opacity-90 hover:scale-[1.02] disabled:opacity-60 disabled:cursor-not-allowed disabled:scale-100"
+        style={{ background: "var(--bg-primary)", boxShadow: "0 4px 24px var(--glow)" }}>
+        {status === "sending" ? (
+          <>
+            <svg className="animate-spin" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+            </svg>
+            Sending…
+          </>
+        ) : "Send Message"}
+      </button>
+    </form>
+  );
+}

@@ -1,109 +1,95 @@
 import Image from "next/image";
-import WorkGallery from "./components/WorkGallery";
+import Link from "next/link";
 import ThemeToggle from "./components/ThemeToggle";
 import ScrollReveal from "./components/ScrollReveal";
+import ContactForm from "./components/ContactForm";
+
+/* ─── Data ─────────────────────────────────────────────────────────────── */
 
 const nav = [
   { href: "#about", label: "About" },
-  { href: "#experience", label: "Experience" },
   { href: "#skills", label: "Skills" },
-  { href: "#work", label: "Work" },
+  { href: "#learning", label: "Learning" },
+  { href: "#design", label: "Design" },
   { href: "#contact", label: "Contact" },
 ];
 
-const experience = [
+const stats = [
+  { value: "8+", label: "Years Experience" },
+  { value: "Qatar", label: "Based" },
+  { value: "AZ-900", label: "In Progress" },
+];
+
+const heroTags = ["Azure", "ITIL", "Linux", "Networking", "Windows Server"];
+
+const skills = {
+  technical: [
+    "Linux",
+    "Windows & macOS",
+    "Hardware Troubleshooting",
+    "Networking Basics (DNS · DHCP · TCP/IP)",
+    "cPanel & Web Hosting",
+    "Git & GitHub",
+    "WordPress",
+  ],
+  cloud: [
+    "Microsoft Azure (In Progress)",
+    "Virtualization",
+    "Remote Desktop & SSH",
+  ],
+  creative: [
+    "Visual Communication (8+ years)",
+    "Technical Documentation",
+    "Problem Solving",
+    "Client Management",
+  ],
+};
+
+const learning = [
   {
-    role: "Graphic Designer",
-    org: "كهرماء — Qatar General Electricity & Water",
-    location: "Doha, Qatar · Full-time",
-    dates: "Aug 2025 — Present",
-    current: true,
-    bullets: [
-      "Creating visual content for one of Qatar's largest public utilities.",
-      "Designing for print, digital, and internal communications.",
-    ],
+    icon: "🔄",
+    title: "Microsoft Azure Fundamentals (AZ-900)",
+    status: "In Progress",
+    active: true,
   },
   {
-    role: "Graphic Designer",
-    org: "Abecods Digital Solutions",
-    location: "Doha, Qatar · Remote",
-    dates: "Dec 2024 — Nov 2025",
-    current: false,
-    bullets: [
-      "Produced visuals for print and digital: ads, social media, logos, and brand identities.",
-    ],
+    icon: "🔄",
+    title: "ITIL Foundation (Version 5)",
+    status: "In Progress",
+    active: true,
   },
   {
-    role: "Community Manager & Graphic Designer",
-    org: "Wqtah",
-    location: "Doha, Qatar · Hybrid",
-    dates: "Feb 2024 — Jan 2025",
-    current: false,
-    bullets: [
-      "Managed social media pages and created design assets in Arabic and English.",
-      "Developed HTML email templates and maintained website content.",
-    ],
+    icon: "📚",
+    title: "Azure Home Lab",
+    status: "Planned",
+    active: false,
   },
   {
-    role: "Graphic Designer",
-    org: "Nour Publishing",
-    location: "UAE · Remote",
-    dates: "Oct 2019 — Apr 2022",
-    current: false,
-    bullets: [
-      "Produced book layouts using Adobe InDesign and social media design assets.",
-    ],
-  },
-  {
-    role: "Chief Designer",
-    org: "Amart for Advanced Projects CO.LTD",
-    location: "Khartoum, Sudan · On-site",
-    dates: "Mar 2021 — Nov 2021",
-    current: false,
-    bullets: [
-      "Led visual design for prominent Sudanese companies including Al Baraka Bank Sudan and Al Jazira Bank.",
-    ],
-  },
-  {
-    role: "Freelance Graphic Designer",
-    org: "Independent",
-    location: "Remote",
-    dates: "2017 — Present",
-    current: false,
-    bullets: [
-      "Assisted 30+ startups and brands in establishing their visual presence.",
-      "Delivered brand identities, publications, UI design, and social media kits.",
-    ],
+    icon: "📚",
+    title: "Active Directory Lab",
+    status: "Planned",
+    active: false,
   },
 ];
 
-const designSkills = [
-  "Brand Identity",
-  "Logo Design",
-  "Social Media Design",
-  "Publication Design",
-  "Print & Printables",
-  "UI Art Direction",
-  "Visual Systems",
-  "Campaign Design",
+const designCollections = [
+  { title: "Social Media Design", type: "Collection" },
+  { title: "Brand Identity", type: "Collection" },
+  { title: "UI Art Direction", type: "Collection" },
 ];
 
-const tools = [
-  { name: "Photoshop", level: 95 },
-  { name: "Illustrator", level: 92 },
-  { name: "InDesign", level: 88 },
-  { name: "Figma", level: 80 },
-  { name: "XD", level: 78 },
-  { name: "After Effects", level: 55 },
-  { name: "Premiere Pro", level: 50 },
-];
+/* ─── Page ──────────────────────────────────────────────────────────────── */
 
 export default function Home() {
   return (
-    <div className="relative flex min-h-full flex-1 flex-col overflow-x-hidden" style={{ background: "var(--bg)" }}>
-
-      {/* Ambient */}
-      <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 transition-opacity duration-500"
+    <div
+      className="relative flex min-h-full flex-1 flex-col overflow-x-hidden"
+      style={{ background: "var(--bg)" }}
+    >
+      {/* Ambient gradients */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 -z-10 transition-opacity duration-500"
         style={{
           background: [
             "radial-gradient(ellipse 65% 45% at 10% -5%, var(--ambient-1) 0%, transparent 65%)",
@@ -113,276 +99,326 @@ export default function Home() {
         }}
       />
 
-      {/* ── HEADER ── */}
-      <header className="anim-slide-down sticky top-0 z-20 border-b backdrop-blur-md transition-colors duration-300"
-        style={{ borderColor: "var(--border-subtle)", background: "var(--bg-header)" }}>
+      {/* ── HEADER ────────────────────────────────────────────────────────── */}
+      <header
+        className="anim-slide-down sticky top-0 z-20 border-b backdrop-blur-md transition-colors duration-300"
+        style={{ borderColor: "var(--border-subtle)", background: "var(--bg-header)" }}
+      >
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-4 sm:px-8">
           <a href="#" className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border"
-              style={{ background: "#12092a", borderColor: "var(--border)" }}>
+            <div
+              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border"
+              style={{ background: "#12092a", borderColor: "var(--border)" }}
+            >
               <Image src="/logo.svg" alt="Alixali" width={22} height={22} priority />
             </div>
-            <span className="text-sm font-semibold tracking-wide" style={{ color: "var(--text-primary)" }}>
+            <span
+              className="text-sm font-semibold tracking-wide"
+              style={{ color: "var(--text-primary)" }}
+            >
               Ali <span style={{ color: "var(--text-accent)" }}>Ali</span>
             </span>
           </a>
 
-          <nav className="hidden items-center gap-0.5 text-sm md:flex">
-            {nav.map((item) => (
-              <a key={item.href} href={item.href}
-                className="rounded-lg px-3 py-2 transition-colors hover:opacity-80"
-                style={{ color: "var(--text-secondary)" }}>
-                {item.label}
+          <nav className="hidden items-center gap-1 md:flex">
+            {nav.map((n) => (
+              <a
+                key={n.href}
+                href={n.href}
+                className="rounded-lg px-3 py-1.5 text-sm transition-colors hover:opacity-80"
+                style={{ color: "var(--text-secondary)" }}
+              >
+                {n.label}
               </a>
             ))}
           </nav>
 
-          <div className="flex items-center gap-2">
-            <ThemeToggle />
-            <a href="mailto:hello@alixali.com"
-              className="rounded-xl px-4 py-2 text-sm font-medium text-white transition-all hover:brightness-110"
-              style={{ background: "var(--bg-primary)" }}>
-              Let&apos;s Talk
-            </a>
-          </div>
+          <ThemeToggle />
         </div>
       </header>
 
-      <main className="flex flex-1 flex-col">
+      <main className="mx-auto w-full max-w-6xl flex-1 px-5 sm:px-8">
 
-        {/* ── HERO ── */}
-        <section className="mx-auto flex w-full max-w-6xl flex-col gap-16 px-5 pb-24 pt-20 sm:px-8 lg:flex-row lg:items-center lg:pt-28">
-          <div className="flex flex-1 flex-col gap-7">
+        {/* ── HERO ──────────────────────────────────────────────────────── */}
+        <section className="flex min-h-[88vh] flex-col items-center justify-center gap-12 py-20 lg:flex-row lg:gap-16">
 
-            <span className="anim-fade-up inline-flex w-fit items-center gap-2 rounded-full border px-3.5 py-1.5 text-xs font-medium"
-              style={{ borderColor: "var(--badge-border)", background: "var(--badge-bg)", color: "var(--badge-text)", animationDelay: "0ms" }}>
-              <span className="h-1.5 w-1.5 rounded-full glow-pulse" style={{ background: "var(--dot-color)", boxShadow: "0 0 8px var(--dot-color)" }} />
-              Pixels Engineer · Graphic Designer
+          {/* Left: text */}
+          <div className="flex flex-1 flex-col gap-6">
+            {/* Badge */}
+            <span
+              className="anim-fade-up inline-flex w-fit items-center gap-2 rounded-full border px-3.5 py-1.5 text-xs font-medium"
+              style={{
+                borderColor: "var(--badge-border)",
+                background: "var(--badge-bg)",
+                color: "var(--badge-text)",
+                animationDelay: "0ms",
+              }}
+            >
+              <span
+                className="h-1.5 w-1.5 rounded-full glow-pulse"
+                style={{ background: "var(--dot-color)", boxShadow: "0 0 8px var(--dot-color)" }}
+              />
+              Computer Engineer · IT &amp; Cloud in Progress
             </span>
 
-            <div className="anim-fade-up flex flex-col gap-3" style={{ animationDelay: "100ms" }}>
-              <h1 className="text-balance text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl"
-                style={{ color: "var(--text-primary)" }}>
-                Engineering pixels
-                <br />into brands{" "}
-                <span className="bg-clip-text text-transparent"
-                  style={{ backgroundImage: "linear-gradient(90deg, var(--text-accent) 0%, #673de6 100%)" }}>
-                  that endure.
+            {/* Headline */}
+            <div
+              className="anim-fade-up flex flex-col gap-3"
+              style={{ animationDelay: "100ms" }}
+            >
+              <h1
+                className="text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl"
+                style={{ color: "var(--text-primary)" }}
+              >
+                A Technologist Who{" "}
+                <span
+                  className="bg-clip-text text-transparent"
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(90deg, var(--text-accent) 0%, #673de6 100%)",
+                  }}
+                >
+                  Took the Scenic Route.
                 </span>
               </h1>
-              <p className="max-w-lg text-pretty text-lg leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-                I&apos;m Ali Ali — a graphic designer with 7+ years of crafting visual identities,
-                campaigns, and design systems for brands and startups across the Middle East.
+              <p
+                className="max-w-lg text-pretty text-lg leading-relaxed"
+                style={{ color: "var(--text-secondary)" }}
+              >
+                Computer Engineer. 8 Years of Cross-Disciplinary Experience. Now Focused on IT &amp;
+                Cloud.
               </p>
             </div>
 
-            <div className="anim-fade-up flex flex-wrap gap-3" style={{ animationDelay: "220ms" }}>
-              <a href="#work"
-                className="inline-flex items-center justify-center rounded-xl px-6 py-3 text-sm font-semibold text-white transition-all hover:brightness-110"
-                style={{ background: "var(--bg-primary)", boxShadow: "0 4px 24px var(--glow)" }}>
-                View my work
+            {/* CTAs */}
+            <div
+              className="anim-fade-up flex flex-wrap gap-3"
+              style={{ animationDelay: "220ms" }}
+            >
+              <a
+                href="/cv.pdf"
+                download
+                className="inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-white transition-all hover:opacity-90 hover:scale-[1.02]"
+                style={{ background: "var(--bg-primary)", boxShadow: "0 4px 24px var(--glow)" }}
+              >
+                Download CV
               </a>
-              <a href="mailto:hello@alixali.com"
-                className="inline-flex items-center justify-center rounded-xl border px-6 py-3 text-sm font-medium transition-all hover:opacity-80"
-                style={{ borderColor: "var(--btn-ghost-border)", background: "var(--btn-ghost-bg)", color: "var(--text-primary)" }}>
-                hello@alixali.com
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-2 rounded-xl border px-5 py-2.5 text-sm font-semibold transition-all hover:opacity-80"
+                style={{
+                  borderColor: "var(--btn-ghost-border)",
+                  background: "var(--btn-ghost-bg)",
+                  color: "var(--text-primary)",
+                }}
+              >
+                Let&apos;s Connect →
               </a>
             </div>
 
-            <div className="anim-fade-up flex flex-wrap gap-8 pt-1" style={{ animationDelay: "340ms" }}>
-              {[
-                { value: "7+", label: "Years experience" },
-                { value: "30+", label: "Brands & startups" },
-                { value: "Qatar", label: "Based in" },
-              ].map((s) => (
-                <div key={s.label}>
-                  <p className="text-2xl font-semibold" style={{ color: "var(--text-primary)" }}>{s.value}</p>
-                  <p className="mt-0.5 text-xs" style={{ color: "var(--text-secondary)" }}>{s.label}</p>
+            {/* Stats */}
+            <div
+              className="anim-fade-up flex flex-wrap gap-8 pt-1"
+              style={{ animationDelay: "340ms" }}
+            >
+              {stats.map((s) => (
+                <div key={s.label} className="flex flex-col">
+                  <p className="text-2xl font-semibold" style={{ color: "var(--text-primary)" }}>
+                    {s.value}
+                  </p>
+                  <p className="mt-0.5 text-xs" style={{ color: "var(--text-secondary)" }}>
+                    {s.label}
+                  </p>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Hero card */}
-          <div className="anim-scale-in relative w-full lg:w-[360px] lg:shrink-0" style={{ animationDelay: "180ms" }}>
-            <div aria-hidden className="pointer-events-none absolute -inset-8 -z-10 rounded-3xl blur-3xl"
-              style={{ background: `radial-gradient(ellipse at center, var(--glow), transparent 70%)` }} />
-            <div className="flex flex-col gap-3">
-              <div className="rounded-2xl border p-6 transition-colors duration-300"
-                style={{ borderColor: "var(--border)", background: "var(--bg-card)" }}>
-                <p className="text-xs font-medium uppercase tracking-widest" style={{ color: "var(--text-accent)" }}>Current role</p>
-                <p className="mt-3 text-base font-semibold" style={{ color: "var(--text-primary)" }}>Graphic Designer</p>
-                <p className="mt-0.5 text-sm" style={{ color: "var(--text-secondary)" }}>كهرماء — Qatar General Electricity & Water</p>
-                <p className="mt-1 text-xs" style={{ color: "var(--text-accent-2)" }}>Full-time · Aug 2025 – Present</p>
-                <div className="my-4 h-px" style={{ background: "var(--border)" }} />
-                <p className="text-xs font-medium uppercase tracking-widest" style={{ color: "var(--text-accent)" }}>Core tools</p>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {["Photoshop", "Illustrator", "InDesign", "Figma", "XD"].map((t) => (
-                    <span key={t} className="rounded-lg border px-2.5 py-1 text-xs"
-                      style={{ borderColor: "var(--border)", background: "var(--btn-ghost-bg)", color: "var(--text-primary)" }}>
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <div className="rounded-xl border px-4 py-3 transition-colors duration-300"
-                style={{ borderColor: "var(--border)", background: "var(--bg-card)" }}>
-                <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
-                  <span style={{ color: "var(--text-accent)" }}>🏆 </span>
-                  Logo competition winner — Ministry of Telecom, Sudan
-                </p>
+          {/* Right: card */}
+          <div
+            className="anim-scale-in relative w-full shrink-0 lg:w-80"
+            style={{ animationDelay: "180ms" }}
+          >
+            <div
+              className="absolute inset-0 -z-10 rounded-2xl blur-3xl"
+              style={{ background: `radial-gradient(ellipse at center, var(--glow), transparent 70%)` }}
+            />
+            <div
+              className="rounded-2xl border p-6"
+              style={{ borderColor: "var(--border)", background: "var(--bg-card)" }}
+            >
+              <p
+                className="text-xs font-medium uppercase tracking-widest"
+                style={{ color: "var(--text-accent)" }}
+              >
+                Current Focus
+              </p>
+              <p className="mt-3 text-base font-semibold" style={{ color: "var(--text-primary)" }}>
+                Transitioning into IT &amp; Cloud Computing
+              </p>
+              <div className="my-4 h-px" style={{ background: "var(--border)" }} />
+              <p
+                className="text-xs font-medium uppercase tracking-widest"
+                style={{ color: "var(--text-accent)" }}
+              >
+                Focus Areas
+              </p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {heroTags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded-lg border px-2.5 py-1 text-xs font-medium"
+                    style={{
+                      borderColor: "var(--border)",
+                      background: "var(--btn-ghost-bg)",
+                      color: "var(--text-primary)",
+                    }}
+                  >
+                    {tag}
+                  </span>
+                ))}
               </div>
             </div>
           </div>
         </section>
 
-        <Divider />
-
-        {/* ── ABOUT ── */}
-        <section id="about" className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8">
-          <ScrollReveal className="grid gap-12 lg:grid-cols-2 lg:items-start">
-            <div className="flex flex-col gap-5">
-              <SectionLabel>About</SectionLabel>
-              <h2 className="text-3xl font-semibold tracking-tight" style={{ color: "var(--text-primary)" }}>
-                The designer behind the pixels
+        {/* ── ABOUT SNIPPET ─────────────────────────────────────────────── */}
+        <section id="about" className="py-20">
+          <ScrollReveal>
+            <div className="mx-auto max-w-3xl">
+              <p
+                className="text-xs font-medium uppercase tracking-widest"
+                style={{ color: "var(--text-accent)" }}
+              >
+                About
+              </p>
+              <h2
+                className="mt-2 text-3xl font-semibold tracking-tight"
+                style={{ color: "var(--text-primary)" }}
+              >
+                A Technologist Who Took the Scenic Route.
               </h2>
-              <p className="text-pretty leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-                I&apos;m a Sudanese graphic designer based in Doha, Qatar, with a Bachelor&apos;s degree in
-                Computer Engineering and over 7 years of hands-on experience in visual design. That
-                technical foundation shapes how I approach design — systematically, efficiently, and
-                with an eye for what works beyond aesthetics.
+              <p
+                className="mt-4 text-lg leading-relaxed"
+                style={{ color: "var(--text-secondary)" }}
+              >
+                I didn&apos;t start as a designer. I started as someone who couldn&apos;t stop taking
+                things apart.
               </p>
-              <p className="text-pretty leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-                I&apos;ve worked across startups, publishers, and large public institutions — always
-                bringing the same commitment: clear creative direction, realistic timelines, and
-                production-ready deliverables.
-              </p>
-              <div className="flex gap-4 pt-2">
-                <a href="mailto:hello@alixali.com"
-                  className="inline-flex items-center justify-center rounded-xl px-5 py-2.5 text-sm font-medium text-white transition-all hover:brightness-110"
-                  style={{ background: "var(--bg-primary)" }}>
-                  Get in touch
-                </a>
-                <a href="https://www.linkedin.com/in/alixalicom" target="_blank" rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center rounded-xl border px-5 py-2.5 text-sm font-medium transition-all hover:opacity-80"
-                  style={{ borderColor: "var(--btn-ghost-border)", color: "var(--text-secondary)", background: "var(--btn-ghost-bg)" }}>
-                  LinkedIn
-                </a>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3">
-              {[
-                { label: "Approach", value: "Discovery first, then clear creative direction — not endless options." },
-                { label: "Delivery", value: "Production-ready exports with organized naming and structured handoff." },
-                { label: "Languages", value: "Arabic (native) · English (intermediate)" },
-                { label: "Education", value: "B.Sc. Computer Engineering — Alzaeem Alazhary University, Sudan" },
-              ].map((item) => (
-                <div key={item.label} className="rounded-2xl border p-5 transition-colors duration-300"
-                  style={{ borderColor: "var(--border-subtle)", background: "var(--bg-card)" }}>
-                  <p className="text-xs font-medium uppercase tracking-wider" style={{ color: "var(--text-accent)" }}>{item.label}</p>
-                  <p className="mt-2 text-sm leading-relaxed" style={{ color: "var(--text-primary)" }}>{item.value}</p>
-                </div>
-              ))}
+              <Link
+                href="/about"
+                className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium transition-opacity hover:opacity-70"
+                style={{ color: "var(--text-accent)" }}
+              >
+                Read My Full Story →
+              </Link>
             </div>
           </ScrollReveal>
         </section>
 
-        <Divider />
-
-        {/* ── EXPERIENCE ── */}
-        <section id="experience" className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8">
-          <div className="mb-10 flex items-end justify-between">
-            <div>
-              <SectionLabel>Experience</SectionLabel>
-              <h2 className="mt-2 text-3xl font-semibold tracking-tight" style={{ color: "var(--text-primary)" }}>Work history</h2>
-            </div>
-            <a href="https://www.linkedin.com/in/alixalicom" target="_blank" rel="noopener noreferrer"
-              className="text-sm transition-colors hover:opacity-70" style={{ color: "var(--text-accent)" }}>
-              LinkedIn →
-            </a>
-          </div>
-
-          <div className="flex flex-col gap-4">
-            {experience.map((job, i) => (
-              <ScrollReveal key={job.role + job.org} delay={i * 60}>
-              <article className="rounded-2xl border p-6 transition-colors duration-300"
-                style={{
-                  borderColor: job.current ? "var(--border)" : "var(--border-subtle)",
-                  background: job.current ? "var(--bg-card-hover)" : "var(--bg-card)",
-                }}>
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                  <div className="flex flex-col gap-1">
-                    <div className="flex items-center gap-2">
-                      <h3 className="text-base font-semibold" style={{ color: "var(--text-primary)" }}>{job.role}</h3>
-                      {job.current && (
-                        <span className="rounded-full px-2 py-0.5 text-[10px] font-medium"
-                          style={{ background: "var(--badge-bg)", color: "var(--badge-text)" }}>
-                          Current
-                        </span>
-                      )}
-                    </div>
-                    <p className="text-sm font-medium" style={{ color: job.current ? "var(--text-accent)" : "var(--text-secondary)" }}>
-                      {job.org}
-                    </p>
-                    <p className="text-xs" style={{ color: "var(--text-muted)" }}>{job.location}</p>
-                  </div>
-                  <p className="shrink-0 text-sm" style={{ color: "var(--text-accent-2)" }}>{job.dates}</p>
-                </div>
-                <ul className="mt-4 flex flex-col gap-2">
-                  {job.bullets.map((b) => (
-                    <li key={b} className="flex gap-3 text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "var(--dot-color)" }} />
-                      {b}
-                    </li>
-                  ))}
-                </ul>
-              </article>
-              </ScrollReveal>
-            ))}
-          </div>
-        </section>
-
-        <Divider />
-
-        {/* ── SKILLS ── */}
-        <section id="skills" className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8">
-          <div className="mb-10">
-            <SectionLabel>Skills</SectionLabel>
-            <h2 className="mt-2 text-3xl font-semibold tracking-tight" style={{ color: "var(--text-primary)" }}>
-              What I bring to the table
+        {/* ── SKILLS ────────────────────────────────────────────────────── */}
+        <section id="skills" className="py-20">
+          <ScrollReveal>
+            <p
+              className="text-xs font-medium uppercase tracking-widest"
+              style={{ color: "var(--text-accent)" }}
+            >
+              Skills
+            </p>
+            <h2
+              className="mt-2 text-3xl font-semibold tracking-tight"
+              style={{ color: "var(--text-primary)" }}
+            >
+              What I Bring to the Table
             </h2>
-          </div>
-          <div className="grid gap-8 lg:grid-cols-2">
-            <ScrollReveal variant="scale">
-              <div className="rounded-2xl border p-6 transition-colors duration-300"
-                style={{ borderColor: "var(--border-subtle)", background: "var(--bg-card)" }}>
-                <p className="text-xs font-medium uppercase tracking-widest" style={{ color: "var(--text-accent)" }}>Design disciplines</p>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {designSkills.map((s) => (
-                    <span key={s} className="rounded-xl border px-3 py-1.5 text-sm"
-                      style={{ borderColor: "var(--border)", background: "var(--btn-ghost-bg)", color: "var(--text-primary)" }}>
+          </ScrollReveal>
+
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {/* Technical */}
+            <ScrollReveal variant="scale" delay={0}>
+              <div
+                className="h-full rounded-2xl border p-6"
+                style={{ borderColor: "var(--border-subtle)", background: "var(--bg-card)" }}
+              >
+                <p
+                  className="mb-4 text-xs font-medium uppercase tracking-widest"
+                  style={{ color: "var(--text-accent)" }}
+                >
+                  Technical
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {skills.technical.map((s) => (
+                    <span
+                      key={s}
+                      className="rounded-lg border px-2.5 py-1 text-xs font-medium"
+                      style={{
+                        borderColor: "var(--border)",
+                        background: "var(--btn-ghost-bg)",
+                        color: "var(--text-primary)",
+                      }}
+                    >
                       {s}
                     </span>
                   ))}
                 </div>
               </div>
             </ScrollReveal>
-            <ScrollReveal variant="scale" delay={100}>
-              <div className="rounded-2xl border p-6 transition-colors duration-300"
-                style={{ borderColor: "var(--border-subtle)", background: "var(--bg-card)" }}>
-                <p className="text-xs font-medium uppercase tracking-widest" style={{ color: "var(--text-accent)" }}>Tools & software</p>
-                <div className="mt-5 flex flex-col gap-4">
-                  {tools.map((t) => (
-                    <div key={t.name}>
-                      <div className="mb-1.5 flex items-center justify-between text-sm">
-                        <span style={{ color: "var(--text-primary)" }}>{t.name}</span>
-                        <span style={{ color: "var(--text-accent)" }}>{t.level}%</span>
-                      </div>
-                      <div className="h-1.5 w-full overflow-hidden rounded-full" style={{ background: "var(--progress-bg)" }}>
-                        <div className="h-full rounded-full" style={{ width: `${t.level}%`, background: "var(--bg-primary)" }} />
-                      </div>
-                    </div>
+
+            {/* Cloud & IT */}
+            <ScrollReveal variant="scale" delay={80}>
+              <div
+                className="h-full rounded-2xl border p-6"
+                style={{ borderColor: "var(--border-subtle)", background: "var(--bg-card)" }}
+              >
+                <p
+                  className="mb-4 text-xs font-medium uppercase tracking-widest"
+                  style={{ color: "var(--text-accent)" }}
+                >
+                  Cloud &amp; IT
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {skills.cloud.map((s) => (
+                    <span
+                      key={s}
+                      className="rounded-lg border px-2.5 py-1 text-xs font-medium"
+                      style={{
+                        borderColor: "var(--border)",
+                        background: "var(--btn-ghost-bg)",
+                        color: "var(--text-primary)",
+                      }}
+                    >
+                      {s}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </ScrollReveal>
+
+            {/* Creative & Soft */}
+            <ScrollReveal variant="scale" delay={160}>
+              <div
+                className="h-full rounded-2xl border p-6 sm:col-span-2 lg:col-span-1"
+                style={{ borderColor: "var(--border-subtle)", background: "var(--bg-card)" }}
+              >
+                <p
+                  className="mb-4 text-xs font-medium uppercase tracking-widest"
+                  style={{ color: "var(--text-accent)" }}
+                >
+                  Creative &amp; Soft Skills
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {skills.creative.map((s) => (
+                    <span
+                      key={s}
+                      className="rounded-lg border px-2.5 py-1 text-xs font-medium"
+                      style={{
+                        borderColor: "var(--border)",
+                        background: "var(--btn-ghost-bg)",
+                        color: "var(--text-primary)",
+                      }}
+                    >
+                      {s}
+                    </span>
                   ))}
                 </div>
               </div>
@@ -390,85 +426,266 @@ export default function Home() {
           </div>
         </section>
 
-        <Divider />
-
-        {/* ── WORK ── */}
-        <section id="work" className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8">
-          <ScrollReveal className="mb-10 flex items-end justify-between">
-            <div>
-              <SectionLabel>Work</SectionLabel>
-              <h2 className="mt-2 text-3xl font-semibold tracking-tight" style={{ color: "var(--text-primary)" }}>Selected projects</h2>
-            </div>
+        {/* ── CURRENTLY LEARNING ────────────────────────────────────────── */}
+        <section id="learning" className="py-20">
+          <ScrollReveal>
+            <p
+              className="text-xs font-medium uppercase tracking-widest"
+              style={{ color: "var(--text-accent)" }}
+            >
+              Currently Learning
+            </p>
+            <h2
+              className="mt-2 text-3xl font-semibold tracking-tight"
+              style={{ color: "var(--text-primary)" }}
+            >
+              The Road Ahead
+            </h2>
           </ScrollReveal>
-          <ScrollReveal delay={80}>
-            <WorkGallery />
+
+          <div className="mt-10 grid gap-4 sm:grid-cols-2">
+            {learning.map((item, i) => (
+              <ScrollReveal key={item.title} delay={i * 70}>
+                <div
+                  className="rounded-2xl border p-5"
+                  style={{
+                    borderColor: item.active ? "var(--border)" : "var(--border-subtle)",
+                    background: item.active ? "var(--bg-card-hover)" : "var(--bg-card)",
+                  }}
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex items-start gap-3">
+                      <span className="mt-0.5 text-xl leading-none">{item.icon}</span>
+                      <p
+                        className="text-sm font-semibold leading-snug"
+                        style={{ color: "var(--text-primary)" }}
+                      >
+                        {item.title}
+                      </p>
+                    </div>
+                    <span
+                      className="shrink-0 rounded-full border px-2.5 py-0.5 text-xs font-medium"
+                      style={
+                        item.active
+                          ? {
+                              borderColor: "var(--badge-border)",
+                              background: "var(--badge-bg)",
+                              color: "var(--badge-text)",
+                            }
+                          : {
+                              borderColor: "var(--border)",
+                              background: "var(--btn-ghost-bg)",
+                              color: "var(--text-muted)",
+                            }
+                      }
+                    >
+                      {item.status}
+                    </span>
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </section>
+
+        {/* ── DESIGN BACKGROUND ─────────────────────────────────────────── */}
+        <section id="design" className="py-20">
+          <ScrollReveal>
+            <p
+              className="text-xs font-medium uppercase tracking-widest"
+              style={{ color: "var(--text-accent)" }}
+            >
+              Design Background
+            </p>
+            <h2
+              className="mt-2 text-3xl font-semibold tracking-tight"
+              style={{ color: "var(--text-primary)" }}
+            >
+              8+ Years of Professional Design
+            </h2>
+            <p className="mt-2 text-sm" style={{ color: "var(--text-muted)" }}>
+              A foundation, not a destination.
+            </p>
+          </ScrollReveal>
+
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {designCollections.map((col, i) => (
+              <ScrollReveal key={col.title} variant="scale" delay={i * 80}>
+                <div
+                  className="group overflow-hidden rounded-2xl border transition-all hover:scale-[1.02]"
+                  style={{ borderColor: "var(--border-subtle)", background: "var(--bg-card)" }}
+                >
+                  {/* Placeholder image area */}
+                  <div
+                    className="flex h-44 items-center justify-center"
+                    style={{ background: "var(--btn-ghost-bg)" }}
+                  >
+                    <div className="flex flex-col items-center gap-2">
+                      <div
+                        className="flex h-10 w-10 items-center justify-center rounded-xl"
+                        style={{ background: "var(--badge-bg)" }}
+                      >
+                        <svg
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          style={{ color: "var(--text-accent)" }}
+                        >
+                          <rect x="3" y="3" width="18" height="18" rx="2" />
+                          <circle cx="8.5" cy="8.5" r="1.5" />
+                          <polyline points="21 15 16 10 5 21" />
+                        </svg>
+                      </div>
+                      <p className="text-xs" style={{ color: "var(--text-muted)" }}>
+                        Coming Soon
+                      </p>
+                    </div>
+                  </div>
+                  <div className="p-4">
+                    <p className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>
+                      {col.title}
+                    </p>
+                    <p className="mt-0.5 text-xs" style={{ color: "var(--text-accent)" }}>
+                      {col.type}
+                    </p>
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+
+          <ScrollReveal delay={260}>
+            <div className="mt-8 text-center">
+              <a
+                href="#"
+                className="inline-flex items-center gap-1.5 text-sm font-medium transition-opacity hover:opacity-70"
+                style={{ color: "var(--text-accent)" }}
+              >
+                View Full Portfolio →
+              </a>
+            </div>
           </ScrollReveal>
         </section>
 
-        <Divider />
-
-        {/* ── CONTACT ── */}
-        <section id="contact" className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8">
+        {/* ── CONTACT ───────────────────────────────────────────────────── */}
+        <section id="contact" className="py-20 pb-32">
           <ScrollReveal>
-          <div className="overflow-hidden rounded-3xl border p-10 sm:p-14 transition-colors duration-300"
-            style={{ borderColor: "var(--border)", background: "var(--bg-card)" }}>
-            <div className="mx-auto max-w-xl text-center">
-              <SectionLabel>Contact</SectionLabel>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl" style={{ color: "var(--text-primary)" }}>
-                Let&apos;s build something together
-              </h2>
-              <p className="mt-4 leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-                Have a project in mind? Whether it&apos;s a brand identity, a campaign, or a visual
-                system — I&apos;d love to hear about it.
-              </p>
-              <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-                <a href="mailto:hello@alixali.com"
-                  className="inline-flex items-center justify-center rounded-xl px-7 py-3 text-sm font-semibold text-white transition-all hover:brightness-110"
-                  style={{ background: "var(--bg-primary)", boxShadow: "0 4px 24px var(--glow)" }}>
-                  hello@alixali.com
+            <p
+              className="text-xs font-medium uppercase tracking-widest"
+              style={{ color: "var(--text-accent)" }}
+            >
+              Contact
+            </p>
+            <h2
+              className="mt-2 text-3xl font-semibold tracking-tight"
+              style={{ color: "var(--text-primary)" }}
+            >
+              Let&apos;s Connect
+            </h2>
+            <p className="mt-2 text-sm" style={{ color: "var(--text-secondary)" }}>
+              Open to IT &amp; Cloud opportunities in Qatar and beyond.
+            </p>
+          </ScrollReveal>
+
+          <div className="mt-10 grid gap-10 lg:grid-cols-2">
+            <ScrollReveal delay={80}>
+              <ContactForm />
+            </ScrollReveal>
+
+            <ScrollReveal delay={160}>
+              <div className="flex flex-col gap-4">
+                <a
+                  href="mailto:hello@alixali.com"
+                  className="flex items-center gap-4 rounded-2xl border p-4 transition-all hover:opacity-80 hover:scale-[1.01]"
+                  style={{ borderColor: "var(--border-subtle)", background: "var(--bg-card)" }}
+                >
+                  <div
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl"
+                    style={{ background: "var(--badge-bg)" }}
+                  >
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      style={{ color: "var(--text-accent)" }}
+                    >
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                      <polyline points="22,6 12,13 2,6" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-xs" style={{ color: "var(--text-muted)" }}>Email</p>
+                    <p className="text-sm font-medium" style={{ color: "var(--text-primary)" }}>
+                      hello@alixali.com
+                    </p>
+                  </div>
                 </a>
-                <a href="https://www.linkedin.com/in/alixalicom" target="_blank" rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 justify-center rounded-xl border px-7 py-3 text-sm font-medium transition-all hover:opacity-80"
-                  style={{ borderColor: "var(--btn-ghost-border)", background: "var(--btn-ghost-bg)", color: "var(--text-primary)" }}>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                  </svg>
-                  LinkedIn
+
+                <a
+                  href="https://linkedin.com/in/alixalicom"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 rounded-2xl border p-4 transition-all hover:opacity-80 hover:scale-[1.01]"
+                  style={{ borderColor: "var(--border-subtle)", background: "var(--bg-card)" }}
+                >
+                  <div
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl"
+                    style={{ background: "var(--badge-bg)" }}
+                  >
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      style={{ color: "var(--text-accent)" }}
+                    >
+                      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                      <rect x="2" y="9" width="4" height="12" />
+                      <circle cx="4" cy="4" r="2" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-xs" style={{ color: "var(--text-muted)" }}>LinkedIn</p>
+                    <p className="text-sm font-medium" style={{ color: "var(--text-primary)" }}>
+                      linkedin.com/in/alixalicom
+                    </p>
+                  </div>
                 </a>
               </div>
-            </div>
+            </ScrollReveal>
           </div>
-          </ScrollReveal>
         </section>
-
       </main>
 
-      {/* ── FOOTER ── */}
-      <footer className="border-t py-8 transition-colors duration-300" style={{ borderColor: "var(--border-subtle)" }}>
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-5 text-xs sm:flex-row sm:px-8"
-          style={{ color: "var(--text-muted)" }}>
-          <p>© {new Date().getFullYear()} Ali Ali — Pixels Engineer</p>
-          <p>Graphic Designer · Doha, Qatar</p>
+      {/* ── FOOTER ────────────────────────────────────────────────────────── */}
+      <footer
+        className="border-t py-8 transition-colors duration-300"
+        style={{ borderColor: "var(--border-subtle)" }}
+      >
+        <div className="mx-auto max-w-6xl px-5 sm:px-8">
+          <div className="flex flex-col items-center gap-2 text-center sm:flex-row sm:justify-between">
+            <p className="text-xs" style={{ color: "var(--text-muted)" }}>
+              © {new Date().getFullYear()} Ali Ali — A Technologist Who Took the Scenic Route.
+            </p>
+            <p className="text-xs" style={{ color: "var(--text-muted)" }}>
+              IT &amp; Cloud in Progress · Doha, Qatar
+            </p>
+          </div>
         </div>
       </footer>
 
+      <div
+        className="h-px w-full"
+        style={{
+          background: "linear-gradient(to right, transparent, var(--border), transparent)",
+        }}
+      />
     </div>
-  );
-}
-
-function Divider() {
-  return (
-    <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
-      <div className="h-px transition-colors duration-300"
-        style={{ background: "linear-gradient(to right, transparent, var(--border), transparent)" }} />
-    </div>
-  );
-}
-
-function SectionLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <p className="text-xs font-medium uppercase tracking-widest" style={{ color: "var(--text-accent)" }}>
-      {children}
-    </p>
   );
 }
