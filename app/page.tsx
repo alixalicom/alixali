@@ -12,6 +12,7 @@ const nav = [
   { href: "#learning", label: "Learning" },
   { href: "#design", label: "Design" },
   { href: "#contact", label: "Contact" },
+  { href: "/cv", label: "CV" },
 ];
 
 const stats = [
@@ -121,16 +122,27 @@ export default function Home() {
           </a>
 
           <nav className="hidden items-center gap-1 md:flex">
-            {nav.map((n) => (
-              <a
-                key={n.href}
-                href={n.href}
-                className="rounded-lg px-3 py-1.5 text-sm transition-colors hover:opacity-80"
-                style={{ color: "var(--text-secondary)" }}
-              >
-                {n.label}
-              </a>
-            ))}
+            {nav.map((n) =>
+              n.href.startsWith("/") ? (
+                <Link
+                  key={n.href}
+                  href={n.href}
+                  className="rounded-lg px-3 py-1.5 text-sm font-medium transition-colors hover:opacity-80"
+                  style={{ color: "var(--text-accent)" }}
+                >
+                  {n.label}
+                </Link>
+              ) : (
+                <a
+                  key={n.href}
+                  href={n.href}
+                  className="rounded-lg px-3 py-1.5 text-sm transition-colors hover:opacity-80"
+                  style={{ color: "var(--text-secondary)" }}
+                >
+                  {n.label}
+                </a>
+              )
+            )}
           </nav>
 
           <ThemeToggle />
@@ -196,15 +208,15 @@ export default function Home() {
               style={{ animationDelay: "220ms" }}
             >
               <a
-                href="/cv.pdf"
+                href="/Ali-Ali-CV.pdf"
                 download
                 className="inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-white transition-all hover:opacity-90 hover:scale-[1.02]"
                 style={{ background: "var(--bg-primary)", boxShadow: "0 4px 24px var(--glow)" }}
               >
                 Download CV
               </a>
-              <a
-                href="#contact"
+              <Link
+                href="/cv"
                 className="inline-flex items-center gap-2 rounded-xl border px-5 py-2.5 text-sm font-semibold transition-all hover:opacity-80"
                 style={{
                   borderColor: "var(--btn-ghost-border)",
@@ -212,8 +224,8 @@ export default function Home() {
                   color: "var(--text-primary)",
                 }}
               >
-                Let&apos;s Connect →
-              </a>
+                View Full CV →
+              </Link>
             </div>
 
             {/* Stats */}
