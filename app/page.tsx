@@ -3,6 +3,8 @@ import Link from "next/link";
 import ThemeToggle from "./components/ThemeToggle";
 import ScrollReveal from "./components/ScrollReveal";
 import ContactForm from "./components/ContactForm";
+import { getWorkItems } from "../lib/sanity/queries";
+import { urlFor } from "../lib/sanity/image";
 
 /* ─── Data ─────────────────────────────────────────────────────────────── */
 
@@ -80,7 +82,16 @@ const designCollections = [
 
 /* ─── Page ──────────────────────────────────────────────────────────────── */
 
-export default function Home() {
+export default async function Home() {
+  // Fetch work items — gracefully returns [] if Sanity isn't configured yet
+  const workItems: {
+    _id: string;
+    title: string;
+    category: string;
+    image?: { asset?: { _ref: string } };
+    description?: string;
+    year?: number;
+  }[] = await getWorkItems().catch(() => []);
   return (
     <div
       className="relative flex min-h-full flex-1 flex-col overflow-x-hidden"
@@ -529,52 +540,63 @@ export default function Home() {
           </ScrollReveal>
 
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {designCollections.map((col, i) => (
-              <ScrollReveal key={col.title} variant="scale" delay={i * 80}>
-                <div
-                  className="group overflow-hidden rounded-2xl border transition-all hover:scale-[1.02]"
-                  style={{ borderColor: "var(--border-subtle)", background: "var(--bg-card)" }}
-                >
-                  {/* Placeholder image area */}
-                  <div
-                    className="flex h-44 items-center justify-center"
-                    style={{ background: "var(--btn-ghost-bg)" }}
-                  >
-                    <div className="flex flex-col items-center gap-2">
+            {(workItems.length > 0 ? workItems : designCollections.map((c) => ({ _id: c.title, title: c.title, category: c.type, image: undefined }))).map(
+              (item, i) => {
+                const imgUrl = item.image?.asset
+                  ? urlFor(item.image).width(600).height(400).fit("crop").url()
+                  : null;
+                return (
+                  <ScrollReveal key={item._id} variant="scale" delay={i * 80}>
+                    <div
+                      className="group overflow-hidden rounded-2xl border transition-all hover:scale-[1.02]"
+                      style={{ borderColor: "var(--border-subtle)", background: "var(--bg-card)" }}
+                    >
+                      {/* Image area */}
                       <div
-                        className="flex h-10 w-10 items-center justify-center rounded-xl"
-                        style={{ background: "var(--badge-bg)" }}
+                        className="relative h-44 overflow-hidden"
+                        style={{ background: "var(--btn-ghost-bg)" }}
                       >
-                        <svg
-                          width="20"
-                          height="20"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          style={{ color: "var(--text-accent)" }}
-                        >
-                          <rect x="3" y="3" width="18" height="18" rx="2" />
-                          <circle cx="8.5" cy="8.5" r="1.5" />
-                          <polyline points="21 15 16 10 5 21" />
-                        </svg>
+                        {imgUrl ? (
+                          <Image
+                            src={imgUrl}
+                            alt={item.title}
+                            fill
+                            className="object-cover transition-transform duration-500 group-hover:scale-105"
+                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          />
+                        ) : (
+                          <div className="flex h-full flex-col items-center justify-center gap-2">
+                            <div
+                              className="flex h-10 w-10 items-center justify-center rounded-xl"
+                              style={{ background: "var(--badge-bg)" }}
+                            >
+                              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" strokeWidth="1.5"
+                                style={{ color: "var(--text-accent)" }}>
+                                <rect x="3" y="3" width="18" height="18" rx="2" />
+                                <circle cx="8.5" cy="8.5" r="1.5" />
+                                <polyline points="21 15 16 10 5 21" />
+                              </svg>
+                            </div>
+                            <p className="text-xs" style={{ color: "var(--text-muted)" }}>
+                              Coming Soon
+                            </p>
+                          </div>
+                        )}
                       </div>
-                      <p className="text-xs" style={{ color: "var(--text-muted)" }}>
-                        Coming Soon
-                      </p>
+                      <div className="p-4">
+                        <p className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>
+                          {item.title}
+                        </p>
+                        <p className="mt-0.5 text-xs" style={{ color: "var(--text-accent)" }}>
+                          {item.category}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="p-4">
-                    <p className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>
-                      {col.title}
-                    </p>
-                    <p className="mt-0.5 text-xs" style={{ color: "var(--text-accent)" }}>
-                      {col.type}
-                    </p>
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
+                  </ScrollReveal>
+                );
+              }
+            )}
           </div>
 
           <ScrollReveal delay={260}>

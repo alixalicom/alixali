@@ -24,9 +24,11 @@ export default defineType({
       type: "string",
       options: {
         list: [
-          { title: "Social Media", value: "Social Media" },
+          { title: "Social Media Design", value: "Social Media Design" },
+          { title: "Brand Identity", value: "Brand Identity" },
+          { title: "UI Art Direction", value: "UI Art Direction" },
           { title: "Print Design", value: "Print Design" },
-          { title: "Logo Design", value: "Logo Design" },
+          { title: "Publication Design", value: "Publication Design" },
         ],
         layout: "radio",
       },
