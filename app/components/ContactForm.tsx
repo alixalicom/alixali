@@ -19,17 +19,24 @@ export default function ContactForm() {
     setErrorMsg("");
 
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
+          name: form.name,
+          email: form.email,
+          message: form.message,
+          subject: `New message from ${form.name} — alixali.com`,
+        }),
       });
 
-      if (res.ok) {
+      const data = await res.json();
+
+      if (data.success) {
         setStatus("sent");
       } else {
-        const data = await res.json().catch(() => ({}));
-        setErrorMsg(data.error || "Something went wrong. Please try again.");
+        setErrorMsg(data.message || "Something went wrong. Please try again.");
         setStatus("error");
       }
     } catch {
@@ -48,15 +55,8 @@ export default function ContactForm() {
           className="flex h-12 w-12 items-center justify-center rounded-full"
           style={{ background: "var(--badge-bg)" }}
         >
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            style={{ color: "var(--text-accent)" }}
-          >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+            style={{ color: "var(--text-accent)" }}>
             <polyline points="20 6 9 17 4 12" />
           </svg>
         </div>
@@ -67,10 +67,7 @@ export default function ContactForm() {
           Thanks for reaching out. I&apos;ll get back to you soon.
         </p>
         <button
-          onClick={() => {
-            setStatus("idle");
-            setForm({ name: "", email: "", message: "" });
-          }}
+          onClick={() => { setStatus("idle"); setForm({ name: "", email: "", message: "" }); }}
           className="mt-2 text-xs underline underline-offset-4 transition-opacity hover:opacity-70"
           style={{ color: "var(--text-muted)" }}
         >
@@ -137,7 +134,6 @@ export default function ContactForm() {
         />
       </div>
 
-      {/* Error message */}
       {status === "error" && (
         <p className="rounded-lg border border-red-500/20 bg-red-500/10 px-4 py-2.5 text-xs text-red-400">
           {errorMsg}
@@ -152,22 +148,13 @@ export default function ContactForm() {
       >
         {status === "sending" ? (
           <>
-            <svg
-              className="animate-spin"
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-            >
+            <svg className="animate-spin" width="14" height="14" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" strokeWidth="2.5">
               <path d="M21 12a9 9 0 1 1-6.219-8.56" />
             </svg>
             Sending…
           </>
-        ) : (
-          "Send Message"
-        )}
+        ) : "Send Message"}
       </button>
     </form>
   );
