@@ -36,8 +36,6 @@
 
   --progress-bg: rgba(255, 255, 255, 0.08);
 
-  --bg-section-alt: #1a1035;
-
   --ambient-1: rgba(109, 40, 217, 0.30);
   --ambient-2: rgba(124, 58, 237, 0.20);
   --ambient-3: rgba(67, 20, 140, 0.25);
@@ -45,7 +43,6 @@
 
 .light {
   --bg: #f2f3f6;
-  --bg-section-alt: #eaebf2;
   --bg-header: rgba(242, 243, 246, 0.85);
   --bg-card: #ffffff;
   --bg-card-hover: #f8f7ff;

@@ -3,8 +3,6 @@ import Link from "next/link";
 import ThemeToggle from "./components/ThemeToggle";
 import ScrollReveal from "./components/ScrollReveal";
 import ContactForm from "./components/ContactForm";
-import { getWorkItems } from "../lib/sanity/queries";
-import { urlFor } from "../lib/sanity/image";
 
 /* ─── Data ─────────────────────────────────────────────────────────────── */
 
@@ -74,24 +72,36 @@ const learning = [
   },
 ];
 
-const designCollections = [
-  { title: "Social Media Design", type: "Collection" },
-  { title: "Brand Identity", type: "Collection" },
-  { title: "UI Art Direction", type: "Collection" },
+/*
+ * ── Portfolio items ───────────────────────────────────────────────────────
+ * To add an image: upload it to Google Drive, set sharing to "Anyone with
+ * the link can view", then paste the direct image URL below.
+ * Format: https://drive.google.com/uc?export=view&id=FILE_ID
+ */
+const portfolioItems = [
+  {
+    id: "1",
+    title: "Social Media Design",
+    category: "Collection",
+    imageUrl: "", // ← paste Google Drive link here
+  },
+  {
+    id: "2",
+    title: "Brand Identity",
+    category: "Collection",
+    imageUrl: "", // ← paste Google Drive link here
+  },
+  {
+    id: "3",
+    title: "UI Art Direction",
+    category: "Collection",
+    imageUrl: "", // ← paste Google Drive link here
+  },
 ];
 
 /* ─── Page ──────────────────────────────────────────────────────────────── */
 
-export default async function Home() {
-  // Fetch work items — gracefully returns [] if Sanity isn't configured yet
-  const workItems: {
-    _id: string;
-    title: string;
-    category: string;
-    image?: { asset?: { _ref: string } };
-    description?: string;
-    year?: number;
-  }[] = await getWorkItems().catch(() => []);
+export default function Home() {
   return (
     <div
       className="relative flex min-h-full flex-1 flex-col overflow-x-hidden"
@@ -169,14 +179,10 @@ export default async function Home() {
         </div>
       </header>
 
-      <main className="flex-1 w-full">
+      <main className="mx-auto w-full max-w-6xl flex-1 px-5 sm:px-8">
 
         {/* ── HERO ──────────────────────────────────────────────────────── */}
-        <section
-          className="min-h-[88vh] flex flex-col justify-center"
-          style={{ background: "var(--bg)" }}
-        >
-          <div className="mx-auto w-full max-w-6xl px-5 sm:px-8 py-20 flex flex-col gap-12 lg:flex-row lg:gap-16 items-center">
+        <section className="flex min-h-[88vh] flex-col items-center justify-center gap-12 py-20 lg:flex-row lg:gap-16">
 
           {/* Left: text */}
           <div className="flex flex-1 flex-col gap-6">
@@ -315,12 +321,10 @@ export default async function Home() {
               </div>
             </div>
           </div>
-          </div>
         </section>
 
         {/* ── ABOUT SNIPPET ─────────────────────────────────────────────── */}
-        <section id="about" style={{ background: "var(--bg-section-alt)" }}>
-        <div className="mx-auto max-w-6xl px-5 sm:px-8 py-20">
+        <section id="about" className="py-20">
           <ScrollReveal>
             <div className="mx-auto max-w-3xl">
               <p
@@ -351,12 +355,10 @@ export default async function Home() {
               </Link>
             </div>
           </ScrollReveal>
-        </div>
         </section>
 
         {/* ── SKILLS ────────────────────────────────────────────────────── */}
-        <section id="skills" style={{ background: "var(--bg)" }}>
-        <div className="mx-auto max-w-6xl px-5 sm:px-8 py-20">
+        <section id="skills" className="py-20">
           <ScrollReveal>
             <p
               className="text-xs font-medium uppercase tracking-widest"
@@ -463,12 +465,10 @@ export default async function Home() {
               </div>
             </ScrollReveal>
           </div>
-        </div>
         </section>
 
         {/* ── CURRENTLY LEARNING ────────────────────────────────────────── */}
-        <section id="learning" style={{ background: "var(--bg-section-alt)" }}>
-        <div className="mx-auto max-w-6xl px-5 sm:px-8 py-20">
+        <section id="learning" className="py-20">
           <ScrollReveal>
             <p
               className="text-xs font-medium uppercase tracking-widest"
@@ -527,12 +527,10 @@ export default async function Home() {
               </ScrollReveal>
             ))}
           </div>
-        </div>
         </section>
 
         {/* ── DESIGN BACKGROUND ─────────────────────────────────────────── */}
-        <section id="design" style={{ background: "var(--bg)" }}>
-        <div className="mx-auto max-w-6xl px-5 sm:px-8 py-20">
+        <section id="design" className="py-20">
           <ScrollReveal>
             <p
               className="text-xs font-medium uppercase tracking-widest"
@@ -552,63 +550,56 @@ export default async function Home() {
           </ScrollReveal>
 
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {(workItems.length > 0 ? workItems : designCollections.map((c) => ({ _id: c.title, title: c.title, category: c.type, image: undefined }))).map(
-              (item, i) => {
-                const imgUrl = item.image?.asset
-                  ? urlFor(item.image).width(600).height(400).fit("crop").url()
-                  : null;
-                return (
-                  <ScrollReveal key={item._id} variant="scale" delay={i * 80}>
-                    <div
-                      className="group overflow-hidden rounded-2xl border transition-all hover:scale-[1.02]"
-                      style={{ borderColor: "var(--border-subtle)", background: "var(--bg-card)" }}
-                    >
-                      {/* Image area */}
-                      <div
-                        className="relative h-44 overflow-hidden"
-                        style={{ background: "var(--btn-ghost-bg)" }}
-                      >
-                        {imgUrl ? (
-                          <Image
-                            src={imgUrl}
-                            alt={item.title}
-                            fill
-                            className="object-cover transition-transform duration-500 group-hover:scale-105"
-                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                          />
-                        ) : (
-                          <div className="flex h-full flex-col items-center justify-center gap-2">
-                            <div
-                              className="flex h-10 w-10 items-center justify-center rounded-xl"
-                              style={{ background: "var(--badge-bg)" }}
-                            >
-                              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" strokeWidth="1.5"
-                                style={{ color: "var(--text-accent)" }}>
-                                <rect x="3" y="3" width="18" height="18" rx="2" />
-                                <circle cx="8.5" cy="8.5" r="1.5" />
-                                <polyline points="21 15 16 10 5 21" />
-                              </svg>
-                            </div>
-                            <p className="text-xs" style={{ color: "var(--text-muted)" }}>
-                              Coming Soon
-                            </p>
-                          </div>
-                        )}
-                      </div>
-                      <div className="p-4">
-                        <p className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>
-                          {item.title}
-                        </p>
-                        <p className="mt-0.5 text-xs" style={{ color: "var(--text-accent)" }}>
-                          {item.category}
+            {portfolioItems.map((item, i) => (
+              <ScrollReveal key={item.id} variant="scale" delay={i * 80}>
+                <div
+                  className="group overflow-hidden rounded-2xl border transition-all hover:scale-[1.02]"
+                  style={{ borderColor: "var(--border-subtle)", background: "var(--bg-card)" }}
+                >
+                  {/* Image area */}
+                  <div
+                    className="relative h-44 overflow-hidden"
+                    style={{ background: "var(--btn-ghost-bg)" }}
+                  >
+                    {item.imageUrl ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={item.imageUrl}
+                        alt={item.title}
+                        referrerPolicy="no-referrer"
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="flex h-full flex-col items-center justify-center gap-2">
+                        <div
+                          className="flex h-10 w-10 items-center justify-center rounded-xl"
+                          style={{ background: "var(--badge-bg)" }}
+                        >
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" strokeWidth="1.5"
+                            style={{ color: "var(--text-accent)" }}>
+                            <rect x="3" y="3" width="18" height="18" rx="2" />
+                            <circle cx="8.5" cy="8.5" r="1.5" />
+                            <polyline points="21 15 16 10 5 21" />
+                          </svg>
+                        </div>
+                        <p className="text-xs" style={{ color: "var(--text-muted)" }}>
+                          Coming Soon
                         </p>
                       </div>
-                    </div>
-                  </ScrollReveal>
-                );
-              }
-            )}
+                    )}
+                  </div>
+                  <div className="p-4">
+                    <p className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>
+                      {item.title}
+                    </p>
+                    <p className="mt-0.5 text-xs" style={{ color: "var(--text-accent)" }}>
+                      {item.category}
+                    </p>
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
           </div>
 
           <ScrollReveal delay={260}>
@@ -622,12 +613,10 @@ export default async function Home() {
               </a>
             </div>
           </ScrollReveal>
-        </div>
         </section>
 
         {/* ── CONTACT ───────────────────────────────────────────────────── */}
-        <section id="contact" style={{ background: "var(--bg-section-alt)" }}>
-        <div className="mx-auto max-w-6xl px-5 sm:px-8 py-20 pb-32">
+        <section id="contact" className="py-20 pb-32">
           <ScrollReveal>
             <p
               className="text-xs font-medium uppercase tracking-widest"
@@ -662,15 +651,9 @@ export default async function Home() {
                     className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl"
                     style={{ background: "var(--badge-bg)" }}
                   >
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      style={{ color: "var(--text-accent)" }}
-                    >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" strokeWidth="2"
+                      style={{ color: "var(--text-accent)" }}>
                       <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                       <polyline points="22,6 12,13 2,6" />
                     </svg>
@@ -694,13 +677,8 @@ export default async function Home() {
                     className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl"
                     style={{ background: "var(--badge-bg)" }}
                   >
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      style={{ color: "var(--text-accent)" }}
-                    >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"
+                      style={{ color: "var(--text-accent)" }}>
                       <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
                       <rect x="2" y="9" width="4" height="12" />
                       <circle cx="4" cy="4" r="2" />
@@ -716,14 +694,13 @@ export default async function Home() {
               </div>
             </ScrollReveal>
           </div>
-        </div>
         </section>
       </main>
 
       {/* ── FOOTER ────────────────────────────────────────────────────────── */}
       <footer
         className="border-t py-8 transition-colors duration-300"
-        style={{ borderColor: "var(--border-subtle)", background: "var(--bg)" }}
+        style={{ borderColor: "var(--border-subtle)" }}
       >
         <div className="mx-auto max-w-6xl px-5 sm:px-8">
           <div className="flex flex-col items-center gap-2 text-center sm:flex-row sm:justify-between">
@@ -736,6 +713,13 @@ export default async function Home() {
           </div>
         </div>
       </footer>
+
+      <div
+        className="h-px w-full"
+        style={{
+          background: "linear-gradient(to right, transparent, var(--border), transparent)",
+        }}
+      />
     </div>
   );
 }
