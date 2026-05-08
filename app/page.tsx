@@ -169,10 +169,14 @@ export default async function Home() {
         </div>
       </header>
 
-      <main className="mx-auto w-full max-w-6xl flex-1 px-5 sm:px-8">
+      <main className="flex-1 w-full">
 
         {/* ── HERO ──────────────────────────────────────────────────────── */}
-        <section className="flex min-h-[88vh] flex-col items-center justify-center gap-12 py-20 lg:flex-row lg:gap-16">
+        <section
+          className="min-h-[88vh] flex flex-col justify-center"
+          style={{ background: "var(--bg)" }}
+        >
+          <div className="mx-auto w-full max-w-6xl px-5 sm:px-8 py-20 flex flex-col gap-12 lg:flex-row lg:gap-16 items-center">
 
           {/* Left: text */}
           <div className="flex flex-1 flex-col gap-6">
@@ -311,10 +315,12 @@ export default async function Home() {
               </div>
             </div>
           </div>
+          </div>
         </section>
 
         {/* ── ABOUT SNIPPET ─────────────────────────────────────────────── */}
-        <section id="about" className="py-20">
+        <section id="about" style={{ background: "var(--bg-section-alt)" }}>
+        <div className="mx-auto max-w-6xl px-5 sm:px-8 py-20">
           <ScrollReveal>
             <div className="mx-auto max-w-3xl">
               <p
@@ -345,10 +351,12 @@ export default async function Home() {
               </Link>
             </div>
           </ScrollReveal>
+        </div>
         </section>
 
         {/* ── SKILLS ────────────────────────────────────────────────────── */}
-        <section id="skills" className="py-20">
+        <section id="skills" style={{ background: "var(--bg)" }}>
+        <div className="mx-auto max-w-6xl px-5 sm:px-8 py-20">
           <ScrollReveal>
             <p
               className="text-xs font-medium uppercase tracking-widest"
@@ -455,10 +463,12 @@ export default async function Home() {
               </div>
             </ScrollReveal>
           </div>
+        </div>
         </section>
 
         {/* ── CURRENTLY LEARNING ────────────────────────────────────────── */}
-        <section id="learning" className="py-20">
+        <section id="learning" style={{ background: "var(--bg-section-alt)" }}>
+        <div className="mx-auto max-w-6xl px-5 sm:px-8 py-20">
           <ScrollReveal>
             <p
               className="text-xs font-medium uppercase tracking-widest"
@@ -517,10 +527,12 @@ export default async function Home() {
               </ScrollReveal>
             ))}
           </div>
+        </div>
         </section>
 
         {/* ── DESIGN BACKGROUND ─────────────────────────────────────────── */}
-        <section id="design" className="py-20">
+        <section id="design" style={{ background: "var(--bg)" }}>
+        <div className="mx-auto max-w-6xl px-5 sm:px-8 py-20">
           <ScrollReveal>
             <p
               className="text-xs font-medium uppercase tracking-widest"
@@ -610,10 +622,12 @@ export default async function Home() {
               </a>
             </div>
           </ScrollReveal>
+        </div>
         </section>
 
         {/* ── CONTACT ───────────────────────────────────────────────────── */}
-        <section id="contact" className="py-20 pb-32">
+        <section id="contact" style={{ background: "var(--bg-section-alt)" }}>
+        <div className="mx-auto max-w-6xl px-5 sm:px-8 py-20 pb-32">
           <ScrollReveal>
             <p
               className="text-xs font-medium uppercase tracking-widest"
@@ -702,13 +716,14 @@ export default async function Home() {
               </div>
             </ScrollReveal>
           </div>
+        </div>
         </section>
       </main>
 
       {/* ── FOOTER ────────────────────────────────────────────────────────── */}
       <footer
         className="border-t py-8 transition-colors duration-300"
-        style={{ borderColor: "var(--border-subtle)" }}
+        style={{ borderColor: "var(--border-subtle)", background: "var(--bg)" }}
       >
         <div className="mx-auto max-w-6xl px-5 sm:px-8">
           <div className="flex flex-col items-center gap-2 text-center sm:flex-row sm:justify-between">
@@ -721,13 +736,6 @@ export default async function Home() {
           </div>
         </div>
       </footer>
-
-      <div
-        className="h-px w-full"
-        style={{
-          background: "linear-gradient(to right, transparent, var(--border), transparent)",
-        }}
-      />
     </div>
   );
 }
