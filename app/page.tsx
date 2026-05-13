@@ -3,6 +3,9 @@ import Link from "next/link";
 import ThemeToggle from "./components/ThemeToggle";
 import ScrollReveal from "./components/ScrollReveal";
 import ContactForm from "./components/ContactForm";
+import NetworkCanvas from "./components/NetworkCanvas";
+import TerminalWindow from "./components/TerminalWindow";
+import AnimatedProgress from "./components/AnimatedProgress";
 
 /* ─── Data ─────────────────────────────────────────────────────────────── */
 
@@ -51,53 +54,79 @@ const learning = [
     title: "Microsoft Azure Fundamentals (AZ-900)",
     status: "In Progress",
     active: true,
+    progress: 72,
   },
   {
     icon: "🔄",
     title: "ITIL Foundation (Version 5)",
     status: "In Progress",
     active: true,
+    progress: 55,
   },
   {
     icon: "📚",
     title: "Azure Home Lab",
     status: "Planned",
     active: false,
+    progress: 0,
   },
   {
     icon: "📚",
     title: "Active Directory Lab",
     status: "Planned",
     active: false,
+    progress: 0,
   },
 ];
 
 /*
- * ── Portfolio items ───────────────────────────────────────────────────────
- * To add an image: upload it to Google Drive, set sharing to "Anyone with
- * the link can view", then paste the direct image URL below.
- * Format: https://drive.google.com/uc?export=view&id=FILE_ID
+ * ── Portfolio items ────────────────────────────────────────────────────────
+ * To add an image: upload to Google Drive, share as "Anyone with the link",
+ * then paste the direct URL: https://drive.google.com/uc?export=view&id=FILE_ID
  */
 const portfolioItems = [
   {
     id: "1",
     title: "Social Media Design",
     category: "Collection",
-    imageUrl: "", // ← paste Google Drive link here
+    imageUrl: "",
   },
   {
     id: "2",
     title: "Brand Identity",
     category: "Collection",
-    imageUrl: "", // ← paste Google Drive link here
+    imageUrl: "",
   },
   {
     id: "3",
     title: "UI Art Direction",
     category: "Collection",
-    imageUrl: "", // ← paste Google Drive link here
+    imageUrl: "",
   },
 ];
+
+/* ─── SVG icons ──────────────────────────────────────────────────────────── */
+
+const IconTerminal = () => (
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="4 17 10 11 4 5" />
+    <line x1="12" y1="19" x2="20" y2="19" />
+  </svg>
+);
+
+const IconCloud = () => (
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
+  </svg>
+);
+
+const IconLayers = () => (
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <polygon points="12 2 2 7 12 12 22 7 12 2" />
+    <polyline points="2 17 12 22 22 17" />
+    <polyline points="2 12 12 17 22 12" />
+  </svg>
+);
 
 /* ─── Page ──────────────────────────────────────────────────────────────── */
 
@@ -154,7 +183,6 @@ export default function Home() {
             ))}
           </nav>
 
-          {/* CV button — always visible, including mobile */}
           <div className="flex items-center gap-2">
             <Link
               href="/cv"
@@ -182,10 +210,16 @@ export default function Home() {
       <main className="mx-auto w-full max-w-6xl flex-1 px-5 sm:px-8">
 
         {/* ── HERO ──────────────────────────────────────────────────────── */}
-        <section className="flex min-h-[88vh] flex-col items-center justify-center gap-12 py-20 lg:flex-row lg:gap-16">
+        <section className="relative flex min-h-[88vh] flex-col items-center justify-center gap-12 overflow-hidden py-20 lg:flex-row lg:gap-16">
+
+          {/* Network canvas background */}
+          <NetworkCanvas />
+
+          {/* Subtle tech dot grid */}
+          <div aria-hidden className="tech-grid pointer-events-none absolute inset-0 opacity-60" />
 
           {/* Left: text */}
-          <div className="flex flex-1 flex-col gap-6">
+          <div className="relative z-10 flex flex-1 flex-col gap-6">
             {/* Badge */}
             <span
               className="anim-fade-up inline-flex w-fit items-center gap-2 rounded-full border px-3.5 py-1.5 text-xs font-medium"
@@ -204,10 +238,7 @@ export default function Home() {
             </span>
 
             {/* Headline */}
-            <div
-              className="anim-fade-up flex flex-col gap-3"
-              style={{ animationDelay: "100ms" }}
-            >
+            <div className="anim-fade-up flex flex-col gap-3" style={{ animationDelay: "100ms" }}>
               <h1
                 className="text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl"
                 style={{ color: "var(--text-primary)" }}
@@ -233,10 +264,7 @@ export default function Home() {
             </div>
 
             {/* CTAs */}
-            <div
-              className="anim-fade-up flex flex-wrap gap-3"
-              style={{ animationDelay: "220ms" }}
-            >
+            <div className="anim-fade-up flex flex-wrap gap-3" style={{ animationDelay: "220ms" }}>
               <a
                 href="#contact"
                 className="inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-white transition-all hover:opacity-90 hover:scale-[1.02]"
@@ -258,10 +286,7 @@ export default function Home() {
             </div>
 
             {/* Stats */}
-            <div
-              className="anim-fade-up flex flex-wrap gap-8 pt-1"
-              style={{ animationDelay: "340ms" }}
-            >
+            <div className="anim-fade-up flex flex-wrap gap-8 pt-1" style={{ animationDelay: "340ms" }}>
               {stats.map((s) => (
                 <div key={s.label} className="flex flex-col">
                   <p className="text-2xl font-semibold" style={{ color: "var(--text-primary)" }}>
@@ -275,50 +300,33 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right: card */}
+          {/* Right: terminal */}
           <div
-            className="anim-scale-in relative w-full shrink-0 lg:w-80"
+            className="anim-scale-in relative z-10 w-full shrink-0 lg:w-[340px]"
             style={{ animationDelay: "180ms" }}
           >
+            {/* Glow blob behind terminal */}
             <div
-              className="absolute inset-0 -z-10 rounded-2xl blur-3xl"
-              style={{ background: `radial-gradient(ellipse at center, var(--glow), transparent 70%)` }}
+              className="absolute -inset-6 -z-10 rounded-3xl blur-3xl"
+              style={{ background: "radial-gradient(ellipse at center, var(--glow), transparent 70%)" }}
             />
-            <div
-              className="rounded-2xl border p-6"
-              style={{ borderColor: "var(--border)", background: "var(--bg-card)" }}
-            >
-              <p
-                className="text-xs font-medium uppercase tracking-widest"
-                style={{ color: "var(--text-accent)" }}
-              >
-                Current Focus
-              </p>
-              <p className="mt-3 text-base font-semibold" style={{ color: "var(--text-primary)" }}>
-                Transitioning into IT &amp; Cloud Computing
-              </p>
-              <div className="my-4 h-px" style={{ background: "var(--border)" }} />
-              <p
-                className="text-xs font-medium uppercase tracking-widest"
-                style={{ color: "var(--text-accent)" }}
-              >
-                Focus Areas
-              </p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {heroTags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-lg border px-2.5 py-1 text-xs font-medium"
-                    style={{
-                      borderColor: "var(--border)",
-                      background: "var(--btn-ghost-bg)",
-                      color: "var(--text-primary)",
-                    }}
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
+            <TerminalWindow />
+
+            {/* Focus tags below terminal */}
+            <div className="mt-3 flex flex-wrap gap-1.5">
+              {heroTags.map((tag) => (
+                <span
+                  key={tag}
+                  className="tag-hover rounded-lg border px-2.5 py-1 text-xs font-medium"
+                  style={{
+                    borderColor: "var(--border)",
+                    background: "var(--btn-ghost-bg)",
+                    color: "var(--text-primary)",
+                  }}
+                >
+                  {tag}
+                </span>
+              ))}
             </div>
           </div>
         </section>
@@ -328,13 +336,13 @@ export default function Home() {
           <ScrollReveal>
             <div className="mx-auto max-w-3xl">
               <p
-                className="text-xs font-medium uppercase tracking-widest"
+                className="section-label text-xs font-medium uppercase tracking-widest"
                 style={{ color: "var(--text-accent)" }}
               >
                 About
               </p>
               <h2
-                className="mt-2 text-3xl font-semibold tracking-tight"
+                className="mt-3 text-3xl font-semibold tracking-tight"
                 style={{ color: "var(--text-primary)" }}
               >
                 A Technologist Who Took the Scenic Route.
@@ -361,13 +369,13 @@ export default function Home() {
         <section id="skills" className="py-20">
           <ScrollReveal>
             <p
-              className="text-xs font-medium uppercase tracking-widest"
+              className="section-label text-xs font-medium uppercase tracking-widest"
               style={{ color: "var(--text-accent)" }}
             >
               Skills
             </p>
             <h2
-              className="mt-2 text-3xl font-semibold tracking-tight"
+              className="mt-3 text-3xl font-semibold tracking-tight"
               style={{ color: "var(--text-primary)" }}
             >
               What I Bring to the Table
@@ -378,20 +386,21 @@ export default function Home() {
             {/* Technical */}
             <ScrollReveal variant="scale" delay={0}>
               <div
-                className="h-full rounded-2xl border p-6"
+                className="card-hover h-full rounded-2xl border p-6"
                 style={{ borderColor: "var(--border-subtle)", background: "var(--bg-card)" }}
               >
                 <p
-                  className="mb-4 text-xs font-medium uppercase tracking-widest"
+                  className="mb-4 flex items-center gap-2 text-xs font-medium uppercase tracking-widest"
                   style={{ color: "var(--text-accent)" }}
                 >
+                  <IconTerminal />
                   Technical
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {skills.technical.map((s) => (
                     <span
                       key={s}
-                      className="rounded-lg border px-2.5 py-1 text-xs font-medium"
+                      className="tag-hover rounded-lg border px-2.5 py-1 text-xs font-medium"
                       style={{
                         borderColor: "var(--border)",
                         background: "var(--btn-ghost-bg)",
@@ -408,20 +417,21 @@ export default function Home() {
             {/* Cloud & IT */}
             <ScrollReveal variant="scale" delay={80}>
               <div
-                className="h-full rounded-2xl border p-6"
+                className="card-hover h-full rounded-2xl border p-6"
                 style={{ borderColor: "var(--border-subtle)", background: "var(--bg-card)" }}
               >
                 <p
-                  className="mb-4 text-xs font-medium uppercase tracking-widest"
+                  className="mb-4 flex items-center gap-2 text-xs font-medium uppercase tracking-widest"
                   style={{ color: "var(--text-accent)" }}
                 >
+                  <IconCloud />
                   Cloud &amp; IT
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {skills.cloud.map((s) => (
                     <span
                       key={s}
-                      className="rounded-lg border px-2.5 py-1 text-xs font-medium"
+                      className="tag-hover rounded-lg border px-2.5 py-1 text-xs font-medium"
                       style={{
                         borderColor: "var(--border)",
                         background: "var(--btn-ghost-bg)",
@@ -438,20 +448,21 @@ export default function Home() {
             {/* Creative & Soft */}
             <ScrollReveal variant="scale" delay={160}>
               <div
-                className="h-full rounded-2xl border p-6 sm:col-span-2 lg:col-span-1"
+                className="card-hover h-full rounded-2xl border p-6 sm:col-span-2 lg:col-span-1"
                 style={{ borderColor: "var(--border-subtle)", background: "var(--bg-card)" }}
               >
                 <p
-                  className="mb-4 text-xs font-medium uppercase tracking-widest"
+                  className="mb-4 flex items-center gap-2 text-xs font-medium uppercase tracking-widest"
                   style={{ color: "var(--text-accent)" }}
                 >
+                  <IconLayers />
                   Creative &amp; Soft Skills
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {skills.creative.map((s) => (
                     <span
                       key={s}
-                      className="rounded-lg border px-2.5 py-1 text-xs font-medium"
+                      className="tag-hover rounded-lg border px-2.5 py-1 text-xs font-medium"
                       style={{
                         borderColor: "var(--border)",
                         background: "var(--btn-ghost-bg)",
@@ -471,13 +482,13 @@ export default function Home() {
         <section id="learning" className="py-20">
           <ScrollReveal>
             <p
-              className="text-xs font-medium uppercase tracking-widest"
+              className="section-label text-xs font-medium uppercase tracking-widest"
               style={{ color: "var(--text-accent)" }}
             >
               Currently Learning
             </p>
             <h2
-              className="mt-2 text-3xl font-semibold tracking-tight"
+              className="mt-3 text-3xl font-semibold tracking-tight"
               style={{ color: "var(--text-primary)" }}
             >
               The Road Ahead
@@ -488,7 +499,7 @@ export default function Home() {
             {learning.map((item, i) => (
               <ScrollReveal key={item.title} delay={i * 70}>
                 <div
-                  className="rounded-2xl border p-5"
+                  className="card-hover rounded-2xl border p-5"
                   style={{
                     borderColor: item.active ? "var(--border)" : "var(--border-subtle)",
                     background: item.active ? "var(--bg-card-hover)" : "var(--bg-card)",
@@ -523,6 +534,9 @@ export default function Home() {
                       {item.status}
                     </span>
                   </div>
+                  {item.active && item.progress > 0 && (
+                    <AnimatedProgress value={item.progress} />
+                  )}
                 </div>
               </ScrollReveal>
             ))}
@@ -533,13 +547,13 @@ export default function Home() {
         <section id="design" className="py-20">
           <ScrollReveal>
             <p
-              className="text-xs font-medium uppercase tracking-widest"
+              className="section-label text-xs font-medium uppercase tracking-widest"
               style={{ color: "var(--text-accent)" }}
             >
               Design Background
             </p>
             <h2
-              className="mt-2 text-3xl font-semibold tracking-tight"
+              className="mt-3 text-3xl font-semibold tracking-tight"
               style={{ color: "var(--text-primary)" }}
             >
               8+ Years of Professional Design
@@ -553,7 +567,7 @@ export default function Home() {
             {portfolioItems.map((item, i) => (
               <ScrollReveal key={item.id} variant="scale" delay={i * 80}>
                 <div
-                  className="group overflow-hidden rounded-2xl border transition-all hover:scale-[1.02]"
+                  className="card-hover group overflow-hidden rounded-2xl border transition-all"
                   style={{ borderColor: "var(--border-subtle)", background: "var(--bg-card)" }}
                 >
                   {/* Image area */}
@@ -572,7 +586,7 @@ export default function Home() {
                     ) : (
                       <div className="flex h-full flex-col items-center justify-center gap-2">
                         <div
-                          className="flex h-10 w-10 items-center justify-center rounded-xl"
+                          className="float flex h-10 w-10 items-center justify-center rounded-xl"
                           style={{ background: "var(--badge-bg)" }}
                         >
                           <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
@@ -619,13 +633,13 @@ export default function Home() {
         <section id="contact" className="py-20 pb-32">
           <ScrollReveal>
             <p
-              className="text-xs font-medium uppercase tracking-widest"
+              className="section-label text-xs font-medium uppercase tracking-widest"
               style={{ color: "var(--text-accent)" }}
             >
               Contact
             </p>
             <h2
-              className="mt-2 text-3xl font-semibold tracking-tight"
+              className="mt-3 text-3xl font-semibold tracking-tight"
               style={{ color: "var(--text-primary)" }}
             >
               Let&apos;s Connect
@@ -644,7 +658,7 @@ export default function Home() {
               <div className="flex flex-col gap-4">
                 <a
                   href="mailto:hello@alixali.com"
-                  className="flex items-center gap-4 rounded-2xl border p-4 transition-all hover:opacity-80 hover:scale-[1.01]"
+                  className="card-hover flex items-center gap-4 rounded-2xl border p-4"
                   style={{ borderColor: "var(--border-subtle)", background: "var(--bg-card)" }}
                 >
                   <div
@@ -670,7 +684,7 @@ export default function Home() {
                   href="https://linkedin.com/in/alixalicom"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-4 rounded-2xl border p-4 transition-all hover:opacity-80 hover:scale-[1.01]"
+                  className="card-hover flex items-center gap-4 rounded-2xl border p-4"
                   style={{ borderColor: "var(--border-subtle)", background: "var(--bg-card)" }}
                 >
                   <div

@@ -152,3 +152,71 @@ body {
 .glow-pulse {
   animation: glowPulse 2s ease-in-out infinite;
 }
+
+/* ─── Float ──────────────────────────────────────────────────────────────── */
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-7px); }
+}
+
+.float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* ─── Subtle entrance for cards ──────────────────────────────────────────── */
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Tech dot grid (hero background) ───────────────────────────────────── */
+
+.tech-grid {
+  background-image:
+    radial-gradient(rgba(167, 139, 250, 0.07) 1px, transparent 1px);
+  background-size: 26px 26px;
+}
+
+/* ─── Card hover glow ────────────────────────────────────────────────────── */
+
+.card-hover {
+  transition: box-shadow 0.3s ease, transform 0.25s ease, border-color 0.3s ease;
+}
+
+.card-hover:hover {
+  box-shadow: 0 0 0 1px rgba(167, 139, 250, 0.22),
+              0 8px 32px rgba(124, 58, 237, 0.18);
+  border-color: rgba(167, 139, 250, 0.22) !important;
+}
+
+/* ─── Gradient shimmer (skill tags hover) ───────────────────────────────── */
+
+.tag-hover {
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.tag-hover:hover {
+  background: rgba(124, 58, 237, 0.18) !important;
+  border-color: rgba(167, 139, 250, 0.35) !important;
+  color: var(--text-accent) !important;
+}
+
+/* ─── Accent underline for section labels ────────────────────────────────── */
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-label::before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--text-accent);
+  opacity: 0.7;
+}
