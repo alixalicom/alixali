@@ -32,11 +32,12 @@ function sleep(ms: number) {
 }
 
 export default function TerminalWindow() {
-  const [lines, setLines]             = useState<Line[]>([]);
-  const [cursor, setCursor]           = useState("");
-  const [cursorOn, setCursorOn]       = useState(true);
-  const cancelRef                     = useRef(false);
-  const bottomRef                     = useRef<HTMLDivElement>(null);
+  const [lines, setLines]       = useState<Line[]>([]);
+  const [cursor, setCursor]     = useState("");
+  const [cursorOn, setCursorOn] = useState(true);
+  const cancelRef               = useRef(false);
+  /* ref to the scrollable body — scroll THIS, not the page */
+  const bodyRef                 = useRef<HTMLDivElement>(null);
 
   /* Cursor blink */
   useEffect(() => {
@@ -44,9 +45,10 @@ export default function TerminalWindow() {
     return () => clearInterval(id);
   }, []);
 
-  /* Auto-scroll */
+  /* Scroll inside terminal container only — never touches page scroll */
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    const el = bodyRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
   }, [lines, cursor]);
 
   /* Animation loop */
@@ -97,7 +99,7 @@ export default function TerminalWindow() {
       className="relative w-full overflow-hidden rounded-2xl border"
       style={{
         borderColor: "rgba(167, 139, 250, 0.18)",
-        background: "rgba(7, 3, 18, 0.96)",
+        background: "rgba(5, 2, 14, 0.97)",
         backdropFilter: "blur(20px)",
         boxShadow:
           "0 24px 64px rgba(124, 58, 237, 0.28), inset 0 1px 0 rgba(167, 139, 250, 0.08)",
@@ -125,10 +127,16 @@ export default function TerminalWindow() {
         </span>
       </div>
 
-      {/* Body */}
+      {/* Body — overflow-y scroll is contained here, never the page */}
       <div
-        className="h-[220px] overflow-hidden p-4"
-        style={{ fontFamily: "var(--font-geist-mono)" }}
+        ref={bodyRef}
+        data-terminal-body
+        className="h-[220px] p-4"
+        style={{
+          fontFamily: "var(--font-geist-mono)",
+          overflowY: "scroll",
+          scrollbarWidth: "none",
+        }}
       >
         <div className="space-y-0.5 text-xs">
           {lines.map((l, i) =>
@@ -160,7 +168,6 @@ export default function TerminalWindow() {
             />
           </div>
         </div>
-        <div ref={bottomRef} />
       </div>
     </div>
   );

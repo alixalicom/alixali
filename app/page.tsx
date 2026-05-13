@@ -5,7 +5,7 @@ import ScrollReveal from "./components/ScrollReveal";
 import ContactForm from "./components/ContactForm";
 import NetworkCanvas from "./components/NetworkCanvas";
 import TerminalWindow from "./components/TerminalWindow";
-import AnimatedProgress from "./components/AnimatedProgress";
+import AnimatedRing from "./components/AnimatedRing";
 
 /* ─── Data ─────────────────────────────────────────────────────────────── */
 
@@ -158,7 +158,7 @@ export default function Home() {
           <a href="#" className="flex items-center gap-2.5">
             <div
               className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border"
-              style={{ background: "#12092a", borderColor: "var(--border)" }}
+              style={{ background: "var(--bg-card)", borderColor: "var(--border)" }}
             >
               <Image src="/logo.svg" alt="Alixali" width={22} height={22} priority />
             </div>
@@ -508,35 +508,31 @@ export default function Home() {
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex items-start gap-3">
                       <span className="mt-0.5 text-xl leading-none">{item.icon}</span>
-                      <p
-                        className="text-sm font-semibold leading-snug"
-                        style={{ color: "var(--text-primary)" }}
-                      >
-                        {item.title}
-                      </p>
-                    </div>
-                    <span
-                      className="shrink-0 rounded-full border px-2.5 py-0.5 text-xs font-medium"
-                      style={
-                        item.active
-                          ? {
-                              borderColor: "var(--badge-border)",
-                              background: "var(--badge-bg)",
-                              color: "var(--badge-text)",
-                            }
-                          : {
+                      <div className="flex flex-col gap-1.5">
+                        <p
+                          className="text-sm font-semibold leading-snug"
+                          style={{ color: "var(--text-primary)" }}
+                        >
+                          {item.title}
+                        </p>
+                        {!item.active && (
+                          <span
+                            className="w-fit rounded-full border px-2.5 py-0.5 text-xs font-medium"
+                            style={{
                               borderColor: "var(--border)",
                               background: "var(--btn-ghost-bg)",
                               color: "var(--text-muted)",
-                            }
-                      }
-                    >
-                      {item.status}
-                    </span>
+                            }}
+                          >
+                            {item.status}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    {item.active && item.progress > 0 ? (
+                      <AnimatedRing value={item.progress} size={46} />
+                    ) : null}
                   </div>
-                  {item.active && item.progress > 0 && (
-                    <AnimatedProgress value={item.progress} />
-                  )}
                 </div>
               </ScrollReveal>
             ))}

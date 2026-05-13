@@ -9,10 +9,10 @@
 
 :root {
   /* Dark mode (default) */
-  --bg: #12092a;
-  --bg-header: rgba(18, 9, 42, 0.85);
-  --bg-card: #1c1133;
-  --bg-card-hover: #231444;
+  --bg: #07030f;
+  --bg-header: rgba(7, 3, 15, 0.88);
+  --bg-card: #0e0720;
+  --bg-card-hover: #160c2e;
   --bg-primary: #7c3aed;
 
   --border: rgba(255, 255, 255, 0.12);
@@ -36,9 +36,9 @@
 
   --progress-bg: rgba(255, 255, 255, 0.08);
 
-  --ambient-1: rgba(109, 40, 217, 0.30);
-  --ambient-2: rgba(124, 58, 237, 0.20);
-  --ambient-3: rgba(67, 20, 140, 0.25);
+  --ambient-1: rgba(109, 40, 217, 0.35);
+  --ambient-2: rgba(124, 58, 237, 0.22);
+  --ambient-3: rgba(67, 20, 140, 0.28);
 }
 
 .light {
@@ -79,6 +79,12 @@
 body {
   margin: 0;
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ─── Hide scrollbar inside terminal (webkit) ───────────────────────────── */
+
+[data-terminal-body]::-webkit-scrollbar {
+  display: none;
 }
 
 /* ─── Header animation ───────────────────────────────────────────────────── */
