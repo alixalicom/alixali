@@ -243,7 +243,7 @@ export default function CVPage() {
             ← Back to Home
           </Link>
           <a
-            href="/Ali-Ali-CV.pdf"
+            href="https://drive.google.com/uc?export=download&id=1WVWr0xq3rPFw1FCt65YYqOFKj1lyrs-L"
             download
             className="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold text-white transition-all hover:opacity-90 hover:scale-[1.02]"
             style={{ background: "var(--bg-primary)", boxShadow: "0 4px 20px var(--glow)" }}
@@ -688,7 +688,7 @@ export default function CVPage() {
         {/* Bottom action buttons */}
         <div className="mt-16 flex flex-wrap items-center justify-center gap-4">
           <a
-            href="/Ali-Ali-CV.pdf"
+            href="https://drive.google.com/uc?export=download&id=1WVWr0xq3rPFw1FCt65YYqOFKj1lyrs-L"
             download
             className="inline-flex items-center gap-2 rounded-xl px-6 py-2.5 text-sm font-semibold text-white transition-all hover:opacity-90 hover:scale-[1.02]"
             style={{ background: "var(--bg-primary)", boxShadow: "0 4px 24px var(--glow)" }}
